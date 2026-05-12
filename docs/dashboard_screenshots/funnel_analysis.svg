@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="460" viewBox="0 0 880 460" role="img" aria-label="web analytics portfolio chart">
+  <rect width="100%" height="100%" fill="#f7f8fb"/>
+  <style>
+    .title{font:700 28px Arial, sans-serif;fill:#1f2937}
+    .subtitle{font:400 14px Arial, sans-serif;fill:#5f6b7a}
+    .h{font:700 16px Arial, sans-serif;fill:#1f2937}
+    .label{font:400 13px Arial, sans-serif;fill:#5f6b7a}
+    .value{font:700 24px Arial, sans-serif;fill:#1f2937}
+    .small{font:400 12px Arial, sans-serif;fill:#5f6b7a}
+  </style>
+  <text x="40" y="50" class="title">Funnel Analysis</text>
+  <text x="40" y="76" class="subtitle">Session-level flags reduce overcounting from repeated events.</text>
+  <text x="50" y="142" class="label">Product view</text>
+  <rect x="190" y="120" width="560.0" height="32" rx="5" fill="#1f5f8b"/>
+  <text x="765.0" y="142" class="small">9 sessions (100% of views)</text>
+  <text x="50" y="206" class="label">Add to cart</text>
+  <rect x="190" y="184" width="373.3" height="32" rx="5" fill="#2f9e8f"/>
+  <text x="578.3" y="206" class="small">6 sessions (67% of views)</text>
+  <text x="50" y="270" class="label">Checkout</text>
+  <rect x="190" y="248" width="186.7" height="32" rx="5" fill="#e6a23c"/>
+  <text x="391.7" y="270" class="small">3 sessions (33% of views)</text>
+  <text x="50" y="334" class="label">Purchase</text>
+  <rect x="190" y="312" width="186.7" height="32" rx="5" fill="#c95f4f"/>
+  <text x="391.7" y="334" class="small">3 sessions (33% of views)</text>
+  <text x="40" y="410" class="small">Example use: if checkout sessions are low relative to add-to-cart sessions, validate checkout event coverage before treating it as UX friction.</text>
+</svg>
