@@ -1,59 +1,42 @@
 -- Databricks SQL
--- Create bronze tables from public-safe sample CSV files after uploading them to Databricks.
--- If using the UI, upload the CSV files first and create tables with the same names.
+-- Bronze layer for the public eCommerce Behavior Data from Multi-Category Store dataset.
+-- The raw dataset is large, so this repository documents the schema and provides
+-- SQL that can be run after uploading a monthly partition or sample file to Databricks.
 
-create or replace table bronze_web_events (
-  event_id string,
-  session_id string,
-  user_id string,
+create or replace table bronze_ecommerce_events (
   event_time timestamp,
-  channel string,
-  device string,
-  country string,
-  event_name string,
-  product_id string,
-  order_id string,
-  revenue double
+  event_type string,
+  product_id bigint,
+  category_id bigint,
+  category_code string,
+  brand string,
+  price double,
+  user_id bigint,
+  user_session string
 );
 
-create or replace table bronze_products (
-  product_id string,
-  product_name string,
-  category string,
-  list_price double
-);
+-- Example loading pattern after uploading a CSV file to a Databricks volume.
+-- Replace the path with the location of the downloaded public dataset file.
+--
+-- copy into bronze_ecommerce_events
+-- from '/Volumes/main/default/ecommerce_clickstream/ecommerce-behavior.csv'
+-- fileformat = csv
+-- format_options ('header' = 'true', 'inferSchema' = 'false');
 
--- Alternative quick-start: create sample rows directly in Databricks.
+-- Lightweight review sample. This is only for checking that the downstream SQL
+-- can be read and executed without downloading the full source file.
 
-create or replace table bronze_web_events_sample as
+create or replace table bronze_ecommerce_events_sample as
 select * from values
-  ('e001', 's001', 'u001', timestamp('2026-05-01 09:00:00'), 'organic', 'desktop', 'DK', 'view_item', 'p001', null, null),
-  ('e002', 's001', 'u001', timestamp('2026-05-01 09:02:00'), 'organic', 'desktop', 'DK', 'add_to_cart', 'p001', null, null),
-  ('e003', 's001', 'u001', timestamp('2026-05-01 09:04:00'), 'organic', 'desktop', 'DK', 'begin_checkout', 'p001', null, null),
-  ('e004', 's001', 'u001', timestamp('2026-05-01 09:07:00'), 'organic', 'desktop', 'DK', 'purchase', 'p001', 'o001', 299.00),
-  ('e005', 's002', 'u002', timestamp('2026-05-01 10:00:00'), 'paid', 'mobile', 'DK', 'view_item', 'p002', null, null),
-  ('e006', 's002', 'u002', timestamp('2026-05-01 10:03:00'), 'paid', 'mobile', 'DK', 'add_to_cart', 'p002', null, null),
-  ('e007', 's003', 'u003', timestamp('2026-05-01 11:00:00'), 'direct', 'mobile', 'SE', 'view_item', 'p003', null, null),
-  ('e008', 's004', 'u004', timestamp('2026-05-02 12:00:00'), 'organic', 'desktop', 'DK', 'view_item', 'p001', null, null),
-  ('e009', 's004', 'u004', timestamp('2026-05-02 12:03:00'), 'organic', 'desktop', 'DK', 'add_to_cart', 'p001', null, null),
-  ('e010', 's005', 'u005', timestamp('2026-05-02 13:00:00'), 'paid', 'desktop', 'NO', 'view_item', 'p004', null, null),
-  ('e011', 's005', 'u005', timestamp('2026-05-02 13:06:00'), 'paid', 'desktop', 'NO', 'begin_checkout', 'p004', null, null),
-  ('e012', 's006', 'u006', timestamp('2026-05-02 14:00:00'), 'referral', 'mobile', 'DK', 'view_item', 'p002', null, null),
-  ('e013', 's006', 'u006', timestamp('2026-05-02 14:04:00'), 'referral', 'mobile', 'DK', 'add_to_cart', 'p002', null, null),
-  ('e014', 's006', 'u006', timestamp('2026-05-02 14:08:00'), 'referral', 'mobile', 'DK', 'begin_checkout', 'p002', null, null),
-  ('e015', 's006', 'u006', timestamp('2026-05-02 14:12:00'), 'referral', 'mobile', 'DK', 'purchase', 'p002', 'o002', 499.00),
-  ('e016', 's007', 'u007', timestamp('2026-05-03 09:30:00'), 'organic', 'mobile', 'DK', 'view_item', 'p003', null, null),
-  ('e017', 's007', 'u007', timestamp('2026-05-03 09:34:00'), 'organic', 'mobile', 'DK', 'add_to_cart', 'p003', null, null),
-  ('e018', 's008', 'u008', timestamp('2026-05-03 10:15:00'), 'paid', 'mobile', 'DK', 'view_item', 'p001', null, null),
-  ('e019', 's009', 'u009', timestamp('2026-05-03 10:45:00'), 'email', 'desktop', 'DE', 'view_item', 'p004', null, null),
-  ('e020', 's009', 'u009', timestamp('2026-05-03 10:48:00'), 'email', 'desktop', 'DE', 'add_to_cart', 'p004', null, null),
-  ('e021', 's009', 'u009', timestamp('2026-05-03 10:55:00'), 'email', 'desktop', 'DE', 'purchase', 'p004', 'o003', 599.00)
-as t(event_id, session_id, user_id, event_time, channel, device, country, event_name, product_id, order_id, revenue);
-
-create or replace table bronze_products_sample as
-select * from values
-  ('p001', 'Starter Kit', 'Education', 299.00),
-  ('p002', 'Advanced Kit', 'Education', 499.00),
-  ('p003', 'Accessory Pack', 'Education', 199.00),
-  ('p004', 'Classroom Bundle', 'Education', 599.00)
-as t(product_id, product_name, category, list_price);
+  (timestamp('2019-10-01 00:00:01'), 'view',             100001, 2053013555631882655, 'electronics.smartphone', 'samsung',  329.90, 501001, 's001'),
+  (timestamp('2019-10-01 00:01:20'), 'cart',             100001, 2053013555631882655, 'electronics.smartphone', 'samsung',  329.90, 501001, 's001'),
+  (timestamp('2019-10-01 00:04:05'), 'purchase',         100001, 2053013555631882655, 'electronics.smartphone', 'samsung',  329.90, 501001, 's001'),
+  (timestamp('2019-10-01 00:12:10'), 'view',             100002, 2053013555631882655, 'electronics.smartphone', 'apple',    949.00, 501002, 's002'),
+  (timestamp('2019-10-01 00:14:18'), 'view',             100003, 2053013565983425517, 'electronics.audio',      'sony',     119.00, 501003, 's003'),
+  (timestamp('2019-10-01 00:16:23'), 'cart',             100003, 2053013565983425517, 'electronics.audio',      'sony',     119.00, 501003, 's003'),
+  (timestamp('2019-10-01 00:18:07'), 'remove_from_cart', 100003, 2053013565983425517, 'electronics.audio',      'sony',     119.00, 501003, 's003'),
+  (timestamp('2019-10-02 09:20:10'), 'view',             100004, 2053013553375346967, 'appliances.kitchen',     'bosch',    499.00, 501004, 's004'),
+  (timestamp('2019-10-02 09:24:45'), 'cart',             100004, 2053013553375346967, 'appliances.kitchen',     'bosch',    499.00, 501004, 's004'),
+  (timestamp('2019-10-03 11:10:02'), 'view',             100005, 2053013558920217191, 'computers.notebook',     'lenovo',   799.00, 501005, 's005'),
+  (timestamp('2019-10-03 11:18:30'), 'purchase',         100005, 2053013558920217191, 'computers.notebook',     'lenovo',   799.00, 501005, 's005')
+as t(event_time, event_type, product_id, category_id, category_code, brand, price, user_id, user_session);
