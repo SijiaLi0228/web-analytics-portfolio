@@ -2,7 +2,17 @@
 
 This dashboard can be built from the gold KPI tables produced by the Databricks SQL scripts.
 
-The design goal is to support stakeholder conversations, not only display charts. Each page is tied to a business question and a follow-up action.
+The design goal is to support stakeholder conversations, not only display charts. Each page is tied to a business question, a metric definition, and a follow-up action.
+
+## Example Dashboard Output
+
+The visuals below are generated from the repository's public-safe sample event data.
+
+![Dashboard overview](../docs/dashboard_screenshots/dashboard_overview.svg)
+
+![Funnel analysis](../docs/dashboard_screenshots/funnel_analysis.svg)
+
+![Product performance](../docs/dashboard_screenshots/product_performance.svg)
 
 ## Data Sources
 
@@ -87,7 +97,7 @@ Business question:
 
 Recommended visuals:
 
-- Table: product name, views, add-to-cart, purchases, revenue, view-to-purchase rate
+- Table: product name, views, add-to-cart sessions, purchase sessions, revenue, view-to-purchase rate
 - Bar chart: revenue by product
 - Scatter plot: view sessions vs purchase sessions
 - Conditional formatting: low conversion / high views
@@ -116,7 +126,7 @@ Recommended visuals:
 Example interpretation:
 
 ```text
-Paid mobile traffic drives sessions but has weaker conversion, suggesting a need to review campaign targeting and mobile landing page relevance.
+Paid mobile traffic drives sessions but has weaker conversion, suggesting a need to review campaign targeting, mobile landing page relevance, and checkout usability.
 ```
 
 ## Measures to Create in Power BI
@@ -147,21 +157,8 @@ Before sharing the dashboard, I would check:
 - no chart relies on raw event-level rows when a gold table should be used
 - dashboard insights are tied to a suggested next action
 
-## Screenshot Checklist
-
-After building the report, add screenshots to a `docs/dashboard_screenshots/` folder:
-
-- executive overview
-- funnel dashboard
-- product performance page
-- channel/device analysis page
-- Databricks query result for `gold_daily_funnel_kpis`
-- Databricks query result for `gold_product_performance`
-
 ## Design Rationale
 
-A concise rationale for the dashboard structure:
-
-```text
 The dashboard is structured around stakeholder questions rather than chart types: first overall performance, then funnel drop-off, then product-level performance, then channel and device differences. This makes the dashboard easier to use in recurring business reviews.
-```
+
+The important analytics habit is to validate event coverage and KPI definitions before presenting funnel movement as a business issue.
