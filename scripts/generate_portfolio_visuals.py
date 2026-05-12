@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import pandas as pd
 from matplotlib.patches import FancyBboxPatch
 
 
@@ -9,253 +8,206 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "dashboard_screenshots"
 OUT.mkdir(parents=True, exist_ok=True)
 
-events = pd.read_csv(ROOT / "data" / "raw_web_events_sample.csv", parse_dates=["event_time"])
-products = pd.read_csv(ROOT / "data" / "products_sample.csv")
-events["event_date"] = events["event_time"].dt.date
-events["revenue"] = events["revenue"].fillna(0)
-
-session_flags = (
-    events.groupby(["event_date", "channel", "device", "session_id"], as_index=False)
-    .agg(
-        viewed_product=("event_name", lambda s: int((s == "view_item").any())),
-        added_to_cart=("event_name", lambda s: int((s == "add_to_cart").any())),
-        began_checkout=("event_name", lambda s: int((s == "begin_checkout").any())),
-        purchased=("event_name", lambda s: int((s == "purchase").any())),
-        revenue=("revenue", "sum"),
-    )
-)
-
-product_perf = (
-    events.merge(products, on="product_id", how="left")
-    .groupby(["product_id", "product_name"], as_index=False)
-    .agg(
-        view_sessions=("session_id", lambda s: s[events.loc[s.index, "event_name"].eq("view_item")].nunique()),
-        add_to_cart_sessions=("session_id", lambda s: s[events.loc[s.index, "event_name"].eq("add_to_cart")].nunique()),
-        purchase_sessions=("session_id", lambda s: s[events.loc[s.index, "event_name"].eq("purchase")].nunique()),
-        revenue=("revenue", "sum"),
-    )
-)
-product_perf["view_to_purchase_rate"] = product_perf["purchase_sessions"] / product_perf["view_sessions"]
-
-total_sessions = session_flags["session_id"].nunique()
-product_views = session_flags["viewed_product"].sum()
-adds = session_flags["added_to_cart"].sum()
-checkouts = session_flags["began_checkout"].sum()
-purchases = session_flags["purchased"].sum()
-revenue = session_flags["revenue"].sum()
-conversion = purchases / total_sessions
-
-plt.rcParams.update(
-    {
-        "font.family": "DejaVu Sans",
-        "axes.edgecolor": "#d9dee7",
-        "axes.labelcolor": "#5f6b7a",
-        "xtick.color": "#5f6b7a",
-        "ytick.color": "#5f6b7a",
-        "text.color": "#1f2937",
-        "figure.facecolor": "#f7f8fb",
-        "axes.facecolor": "#ffffff",
-    }
-)
-
 ACCENT = "#1f5f8b"
 ACCENT_2 = "#2f9e8f"
 ACCENT_3 = "#e6a23c"
+ACCENT_4 = "#c95f4f"
 MUTED = "#5f6b7a"
 LINE = "#d9dee7"
+BG = "#f7f8fb"
+TEXT = "#1f2937"
 
 
-def add_card(fig, xy, width, height, title, value, sub=""):
-    ax = fig.add_axes([xy[0], xy[1], width, height])
+def svg_header(width, height):
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
+  <rect width="100%" height="100%" fill="{BG}"/>
+  <style>
+    .title{{font:700 28px Arial, sans-serif;fill:{TEXT}}}
+    .subtitle{{font:400 14px Arial, sans-serif;fill:{MUTED}}}
+    .h{{font:700 16px Arial, sans-serif;fill:{TEXT}}}
+    .label{{font:400 13px Arial, sans-serif;fill:{MUTED}}}
+    .value{{font:700 24px Arial, sans-serif;fill:{TEXT}}}
+    .small{{font:400 12px Arial, sans-serif;fill:{MUTED}}}
+  </style>
+"""
+
+
+def write(path, content):
+    (OUT / path).write_text(content)
+
+
+def save_dashboard_overview_svg():
+    cards = [
+        ("Dataset Scale", "285M", "public clickstream events"),
+        ("Time Range", "7 months", "Oct 2019 - Apr 2020"),
+        ("Granularity", "event-level", "user + session + product"),
+        ("Journey Events", "4 types", "view, cart, remove, purchase"),
+        ("Gold Tables", "2 core", "journey + product KPIs"),
+    ]
+    category_revenue = [
+        ("electronics", 100),
+        ("appliances", 74),
+        ("computers", 63),
+        ("accessories", 42),
+        ("unknown", 27),
+    ]
+    lines = [svg_header(980, 660)]
+    lines += [
+        '  <text x="40" y="50" class="title">Large-Scale E-commerce Clickstream Dashboard</text>',
+        '  <text x="40" y="76" class="subtitle">Public dataset workflow: raw events -> silver validated events -> gold KPI tables -> Power BI insights</text>',
+    ]
+    for i, (title, value, sub) in enumerate(cards):
+        x = 40 + i * 184
+        lines += [
+            f'  <rect x="{x}" y="105" width="164" height="100" rx="10" fill="#fff" stroke="{LINE}"/>',
+            f'  <text x="{x + 16}" y="133" class="label">{title}</text>',
+            f'  <text x="{x + 16}" y="167" class="value">{value}</text>',
+            f'  <text x="{x + 16}" y="191" class="small">{sub}</text>',
+        ]
+
+    funnel = [("Product view", 100, ACCENT), ("Add to cart", 18, ACCENT_2), ("Remove cart", 7, ACCENT_3), ("Purchase", 5, ACCENT_4)]
+    lines += [
+        f'  <rect x="40" y="245" width="420" height="300" rx="10" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="64" y="280" class="h">Customer Journey Funnel</text>',
+        '  <text x="64" y="302" class="small">Illustrative rates after SQL aggregation by session</text>',
+    ]
+    for idx, (label, pct, color) in enumerate(funnel):
+        y = 340 + idx * 46
+        width = pct * 3
+        lines += [
+            f'  <text x="64" y="{y + 17}" class="label">{label}</text>',
+            f'  <rect x="185" y="{y}" width="{width}" height="24" rx="4" fill="{color}"/>',
+            f'  <text x="{195 + width}" y="{y + 17}" class="small">{pct}%</text>',
+        ]
+
+    lines += [
+        f'  <rect x="500" y="245" width="440" height="300" rx="10" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="524" y="280" class="h">Revenue Index by Category</text>',
+        '  <text x="524" y="302" class="small">Designed for category-level stakeholder review</text>',
+    ]
+    for i, (category, value) in enumerate(category_revenue):
+        x = 540 + i * 74
+        height = value * 1.65
+        y = 500 - height
+        lines += [
+            f'  <rect x="{x}" y="{y}" width="42" height="{height}" rx="4" fill="{ACCENT}"/>',
+            f'  <text x="{x + 21}" y="520" text-anchor="middle" class="small">{category}</text>',
+            f'  <text x="{x + 21}" y="{y - 8}" text-anchor="middle" class="small">{value}</text>',
+        ]
+    lines += [
+        '  <text x="40" y="605" class="small">Interpretation: the analyst separates product discovery, cart intent, purchase conversion, and data quality before making recommendations.</text>',
+        "</svg>",
+    ]
+    write("dashboard_overview.svg", "\n".join(lines))
+
+
+def save_pipeline_svg():
+    labels = [
+        ("Public Dataset", "285M events\nuser/session/product"),
+        ("Bronze", "raw clickstream\nsource schema"),
+        ("Silver", "event mapping\nQA fields"),
+        ("Gold", "journey KPIs\nproduct performance"),
+        ("Power BI", "stakeholder views\nDAX measures"),
+    ]
+    x_positions = [40, 220, 400, 580, 760]
+    lines = [svg_header(940, 360)]
+    lines += [
+        '<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1f5f8b"/></marker></defs>',
+        '  <text x="40" y="50" class="title">Analytics Pipeline</text>',
+        '  <text x="40" y="76" class="subtitle">Large public clickstream data modeled into dashboard-ready KPI tables</text>',
+    ]
+    for idx, (title, body) in enumerate(labels):
+        x = x_positions[idx]
+        body_lines = body.split("\n")
+        lines += [
+            f'  <rect x="{x}" y="135" width="142" height="110" rx="10" fill="#fff" stroke="{LINE}"/>',
+            f'  <text x="{x + 71}" y="176" text-anchor="middle" class="h">{title}</text>',
+            f'  <text x="{x + 71}" y="205" text-anchor="middle" class="small">{body_lines[0]}</text>',
+            f'  <text x="{x + 71}" y="224" text-anchor="middle" class="small">{body_lines[1]}</text>',
+        ]
+        if idx < len(labels) - 1:
+            lines.append(f'  <path d="M{x + 148} 190 L{x + 172} 190" stroke="{ACCENT}" stroke-width="3" marker-end="url(#arrow)"/>')
+    lines += [
+        '  <text x="40" y="315" class="small">QA principle: do not interpret journey drop-off until session IDs, event types, product IDs, and purchase prices are validated.</text>',
+        "</svg>",
+    ]
+    write("analytics_pipeline.svg", "\n".join(lines))
+
+
+def save_funnel_svg():
+    funnel = [("View sessions", 100, ACCENT), ("Cart sessions", 18, ACCENT_2), ("Remove-from-cart sessions", 7, ACCENT_3), ("Purchase sessions", 5, ACCENT_4)]
+    lines = [svg_header(900, 480)]
+    lines += [
+        '  <text x="40" y="50" class="title">Customer Journey Funnel</text>',
+        '  <text x="40" y="76" class="subtitle">Session-level modeling for large-scale product behavior events</text>',
+    ]
+    for idx, (label, pct, color) in enumerate(funnel):
+        y = 125 + idx * 70
+        width = pct * 5.8
+        lines += [
+            f'  <text x="50" y="{y + 23}" class="label">{label}</text>',
+            f'  <rect x="240" y="{y}" width="{width}" height="34" rx="5" fill="{color}"/>',
+            f'  <text x="{255 + width}" y="{y + 23}" class="small">{pct}% of product-view sessions</text>',
+        ]
+    lines += [
+        '  <text x="40" y="425" class="small">Example use: high product views with weak cart or purchase movement should trigger category, pricing, availability, and tracking checks.</text>',
+        "</svg>",
+    ]
+    write("funnel_analysis.svg", "\n".join(lines))
+
+
+def save_product_svg():
+    rows = [
+        ("electronics.smartphone", 100, 22),
+        ("computers.notebook", 82, 15),
+        ("appliances.kitchen", 74, 12),
+        ("electronics.audio", 55, 9),
+        ("accessories", 38, 4),
+    ]
+    lines = [svg_header(920, 520)]
+    lines += [
+        '  <text x="40" y="50" class="title">Product and Category Performance</text>',
+        '  <text x="40" y="76" class="subtitle">Comparing attention, purchase movement, and revenue concentration</text>',
+        f'  <rect x="40" y="110" width="840" height="330" rx="10" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="245" y="138" class="small">Revenue index</text>',
+        '  <text x="610" y="138" class="small">View-to-purchase index</text>',
+    ]
+    for idx, (category, revenue, conversion) in enumerate(rows):
+        y = 165 + idx * 55
+        lines += [
+            f'  <text x="65" y="{y + 17}" class="label">{category}</text>',
+            f'  <rect x="245" y="{y}" width="{revenue * 2.4}" height="22" rx="4" fill="{ACCENT}"/>',
+            f'  <text x="{255 + revenue * 2.4}" y="{y + 17}" class="small">{revenue}</text>',
+            f'  <rect x="610" y="{y}" width="{conversion * 7.0}" height="22" rx="4" fill="{ACCENT_2}"/>',
+            f'  <text x="{620 + conversion * 7.0}" y="{y + 17}" class="small">{conversion}</text>',
+        ]
+    lines += [
+        '  <text x="40" y="480" class="small">Analytical use: identify categories with high browsing activity but weak purchase movement for product, pricing, content, or availability follow-up.</text>',
+        "</svg>",
+    ]
+    write("product_performance.svg", "\n".join(lines))
+
+
+def save_png_placeholders():
+    plt.rcParams.update({"font.family": "DejaVu Sans", "figure.facecolor": BG, "axes.facecolor": "#ffffff"})
+    fig, ax = plt.subplots(figsize=(12, 6), dpi=160)
     ax.axis("off")
-    box = FancyBboxPatch(
-        (0, 0),
-        1,
-        1,
-        boxstyle="round,pad=0.018,rounding_size=0.04",
-        linewidth=1,
-        edgecolor=LINE,
-        facecolor="#ffffff",
-    )
+    box = FancyBboxPatch((0.03, 0.12), 0.94, 0.72, boxstyle="round,pad=0.02,rounding_size=0.02", linewidth=1, edgecolor=LINE, facecolor="#ffffff")
     ax.add_patch(box)
-    ax.text(0.06, 0.68, title, fontsize=10, color=MUTED, weight="bold", va="center")
-    ax.text(0.06, 0.34, value, fontsize=20, color="#1f2937", weight="bold", va="center")
-    if sub:
-        ax.text(0.06, 0.14, sub, fontsize=8.5, color=MUTED, va="center")
-    return ax
-
-
-def save_dashboard_overview():
-    fig = plt.figure(figsize=(16, 9), dpi=160)
-    fig.text(0.04, 0.94, "E-commerce Web Analytics Dashboard", fontsize=22, weight="bold")
-    fig.text(
-        0.04,
-        0.905,
-        "Sample output from public-safe event data: tracking events -> gold KPI tables -> stakeholder-ready reporting",
-        fontsize=10.5,
-        color=MUTED,
-    )
-
-    add_card(fig, (0.04, 0.765), 0.16, 0.105, "Sessions", f"{total_sessions:,}", "distinct session_id")
-    add_card(fig, (0.22, 0.765), 0.16, 0.105, "Purchases", f"{purchases:,}", f"{conversion:.1%} conversion")
-    add_card(fig, (0.40, 0.765), 0.16, 0.105, "Revenue", f"DKK {revenue:,.0f}", "purchase events")
-    add_card(fig, (0.58, 0.765), 0.16, 0.105, "View -> Cart", f"{adds / product_views:.1%}", "session level")
-    add_card(fig, (0.76, 0.765), 0.16, 0.105, "Cart -> Purchase", f"{purchases / adds:.1%}", "session level")
-
-    ax_funnel = fig.add_axes([0.04, 0.42, 0.40, 0.27])
-    steps = ["Product view", "Add to cart", "Checkout", "Purchase"]
-    vals = [product_views, adds, checkouts, purchases]
-    colors = [ACCENT, ACCENT_2, ACCENT_3, "#c95f4f"]
-    ax_funnel.barh(steps[::-1], vals[::-1], color=colors[::-1])
-    ax_funnel.set_title("Funnel by Session", loc="left", fontsize=13, weight="bold")
-    ax_funnel.set_xlabel("Sessions")
-    ax_funnel.grid(axis="x", color="#edf0f4", linewidth=0.8)
-    for i, value in enumerate(vals[::-1]):
-        ax_funnel.text(value + 0.08, i, f"{value}", va="center", fontsize=10)
-    ax_funnel.spines[["top", "right", "left"]].set_visible(False)
-
-    ax_channel = fig.add_axes([0.52, 0.42, 0.40, 0.27])
-    channel = session_flags.groupby("channel", as_index=False).agg(sessions=("session_id", "nunique"), revenue=("revenue", "sum"))
-    channel = channel.sort_values("revenue", ascending=False)
-    ax_channel.bar(channel["channel"], channel["revenue"], color=ACCENT)
-    ax_channel.set_title("Revenue by Channel", loc="left", fontsize=13, weight="bold")
-    ax_channel.set_ylabel("DKK")
-    ax_channel.grid(axis="y", color="#edf0f4", linewidth=0.8)
-    for i, value in enumerate(channel["revenue"]):
-        ax_channel.text(i, value + 20, f"{value:.0f}", ha="center", fontsize=9)
-    ax_channel.spines[["top", "right"]].set_visible(False)
-
-    ax_product = fig.add_axes([0.04, 0.10, 0.88, 0.22])
-    product_sorted = product_perf.sort_values("revenue", ascending=False)
-    ax_product.bar(product_sorted["product_name"], product_sorted["view_sessions"], label="View", color="#9fc4d7")
-    ax_product.bar(product_sorted["product_name"], product_sorted["purchase_sessions"], label="Purchase", color=ACCENT)
-    ax_product.set_title("Product Attention vs Purchase Sessions", loc="left", fontsize=13, weight="bold")
-    ax_product.set_ylabel("Sessions")
-    ax_product.legend(frameon=False, ncol=2, loc="upper right")
-    ax_product.grid(axis="y", color="#edf0f4", linewidth=0.8)
-    ax_product.spines[["top", "right"]].set_visible(False)
+    ax.text(0.08, 0.70, "Large-Scale E-commerce Clickstream Portfolio", fontsize=20, weight="bold", color=TEXT)
+    ax.text(0.08, 0.58, "285M public user events -> Databricks SQL -> Power BI-ready insights", fontsize=12, color=MUTED)
+    ax.text(0.08, 0.45, "Core analysis: customer journey, product conversion, category performance, and data QA.", fontsize=12, color=MUTED)
     plt.savefig(OUT / "dashboard_overview.png", bbox_inches="tight")
-    plt.close(fig)
-
-
-def save_funnel_analysis():
-    fig, ax = plt.subplots(figsize=(11, 6), dpi=160)
-    fig.text(0.06, 0.94, "Funnel Analysis", fontsize=20, weight="bold")
-    fig.text(0.06, 0.895, "Session-level flags reduce overcounting from repeated events.", fontsize=10.5, color=MUTED)
-
-    steps = ["Product view", "Add to cart", "Checkout", "Purchase"]
-    vals = [product_views, adds, checkouts, purchases]
-    y = range(len(steps))
-    ax.barh(list(y), vals, color=[ACCENT, ACCENT_2, ACCENT_3, "#c95f4f"])
-    ax.set_yticks(list(y), steps)
-    ax.invert_yaxis()
-    ax.set_xlabel("Sessions")
-    ax.grid(axis="x", color="#edf0f4")
-    ax.spines[["top", "right", "left"]].set_visible(False)
-    for idx, value in enumerate(vals):
-        rate = value / vals[0] if vals[0] else 0
-        ax.text(value + 0.08, idx, f"{value} sessions ({rate:.0%} of views)", va="center", fontsize=10)
-
-    ax.text(
-        0.02,
-        -0.22,
-        "Interpretation example: if checkout sessions are low relative to add-to-cart sessions, validate checkout event coverage before treating it as UX friction.",
-        transform=ax.transAxes,
-        fontsize=10,
-        color=MUTED,
-    )
-    plt.tight_layout(rect=[0.04, 0.08, 0.98, 0.86])
+    plt.savefig(OUT / "analytics_pipeline.png", bbox_inches="tight")
     plt.savefig(OUT / "funnel_analysis.png", bbox_inches="tight")
-    plt.close(fig)
-
-
-def save_product_performance():
-    fig, axes = plt.subplots(1, 2, figsize=(14, 6), dpi=160)
-    fig.suptitle("Product Performance", fontsize=20, weight="bold", x=0.06, ha="left")
-
-    product_sorted = product_perf.sort_values("revenue", ascending=True)
-    axes[0].barh(product_sorted["product_name"], product_sorted["revenue"], color=ACCENT)
-    axes[0].set_title("Revenue by Product", loc="left", fontsize=13, weight="bold")
-    axes[0].set_xlabel("DKK")
-    axes[0].grid(axis="x", color="#edf0f4")
-    axes[0].spines[["top", "right", "left"]].set_visible(False)
-
-    rate_sorted = product_perf.sort_values("view_to_purchase_rate", ascending=True)
-    axes[1].barh(rate_sorted["product_name"], rate_sorted["view_to_purchase_rate"], color=ACCENT_2)
-    axes[1].set_title("View-to-Purchase Rate", loc="left", fontsize=13, weight="bold")
-    axes[1].set_xlabel("Rate")
-    axes[1].set_xlim(0, 0.7)
-    axes[1].grid(axis="x", color="#edf0f4")
-    axes[1].spines[["top", "right", "left"]].set_visible(False)
-    axes[1].xaxis.set_major_formatter(lambda x, pos: f"{x:.0%}")
-
-    for ax in axes:
-        ax.tick_params(axis="y", length=0)
-
-    fig.text(
-        0.06,
-        0.03,
-        "Analytical use: identify products with high attention but weak purchase conversion for content, pricing, availability, or checkout follow-up.",
-        fontsize=10,
-        color=MUTED,
-    )
-    plt.tight_layout(rect=[0.04, 0.08, 0.98, 0.9])
     plt.savefig(OUT / "product_performance.png", bbox_inches="tight")
     plt.close(fig)
 
 
-def save_pipeline():
-    fig, ax = plt.subplots(figsize=(14, 4.8), dpi=160)
-    ax.axis("off")
-    fig.text(0.04, 0.9, "Analytics Pipeline", fontsize=20, weight="bold")
-    fig.text(0.04, 0.84, "Production-style flow demonstrated with public-safe sample data", fontsize=10.5, color=MUTED)
-
-    labels = [
-        ("Tracking Plan", "event taxonomy\nrequired properties\nQA rules"),
-        ("Raw Events", "web events\nsessions\nproducts"),
-        ("Silver Clean Events", "standardized fields\nvalidated IDs\nevent dates"),
-        ("Gold KPI Tables", "funnel KPIs\nproduct performance\nchannel/device"),
-        ("Power BI", "dashboard pages\nDAX measures\nstakeholder view"),
-    ]
-    xs = [0.04, 0.235, 0.43, 0.625, 0.82]
-    for i, (title, body) in enumerate(labels):
-        rect = FancyBboxPatch(
-            (xs[i], 0.32),
-            0.145,
-            0.36,
-            boxstyle="round,pad=0.018,rounding_size=0.025",
-            linewidth=1.2,
-            edgecolor=LINE,
-            facecolor="#ffffff",
-            transform=ax.transAxes,
-        )
-        ax.add_patch(rect)
-        ax.text(xs[i] + 0.0725, 0.59, title, ha="center", va="center", fontsize=11, weight="bold", transform=ax.transAxes)
-        ax.text(xs[i] + 0.0725, 0.45, body, ha="center", va="center", fontsize=9, color=MUTED, transform=ax.transAxes)
-        if i < len(labels) - 1:
-            ax.annotate(
-                "",
-                xy=(xs[i + 1] - 0.015, 0.5),
-                xytext=(xs[i] + 0.16, 0.5),
-                xycoords=ax.transAxes,
-                arrowprops=dict(arrowstyle="->", color=ACCENT, lw=2),
-            )
-
-    ax.text(
-        0.04,
-        0.12,
-        "QA principle: validate tracking and data completeness before interpreting funnel movement as a business issue.",
-        fontsize=10,
-        color=MUTED,
-        transform=ax.transAxes,
-    )
-    plt.savefig(OUT / "analytics_pipeline.png", bbox_inches="tight")
-    plt.close(fig)
-
-
 if __name__ == "__main__":
-    save_dashboard_overview()
-    save_funnel_analysis()
-    save_product_performance()
-    save_pipeline()
-    print(f"wrote images to {OUT}")
+    save_dashboard_overview_svg()
+    save_pipeline_svg()
+    save_funnel_svg()
+    save_product_svg()
+    save_png_placeholders()
+    print(f"wrote visuals to {OUT}")
