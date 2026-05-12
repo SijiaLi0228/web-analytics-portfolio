@@ -1,12 +1,14 @@
-# Web Analytics Portfolio
+# Large-Scale E-commerce Clickstream Analytics Portfolio
 
-An end-to-end e-commerce web analytics project demonstrating how raw tracking data can become reliable business KPIs and Power BI-ready reporting tables.
+An end-to-end web analytics project showing how large-scale product and customer journey events can be modeled into trusted KPI tables and Power BI-ready insights.
+
+The project is designed around the public **eCommerce Behavior Data from Multi-Category Store** dataset: 285 million user events from a multi-category e-commerce store, covering October 2019 to April 2020.
 
 ```text
-tracking plan -> raw web events -> cleaned validated events -> gold KPI tables -> Power BI dashboard insights
+public clickstream dataset -> bronze raw events -> silver validated events -> gold journey/product KPI tables -> Power BI insights
 ```
 
-This repository uses public-safe sample data so the methodology can be shared without exposing private business data, customer records, credentials, or production source code.
+The repository does not store the raw dataset because the public source file is large. It contains the data source documentation, Databricks-style SQL model, quality checks, dashboard design, and visual examples.
 
 ## Visual Outputs
 
@@ -18,69 +20,81 @@ This repository uses public-safe sample data so the methodology can be shared wi
 
 | Area | File | What it shows |
 |---|---|---|
+| Data source | [Source dataset](docs/source_dataset.md) | Why this public clickstream dataset was selected and how fields map to web analytics work |
 | Project summary | [Project overview](docs/project_overview.md) | Structure, scope, and analytical capabilities demonstrated |
 | Web tracking | [Matomo tracking plan](docs/matomo_tracking_plan.md) | How Matomo events can be defined, validated, and modeled |
-| Business case | [Web funnel case study](docs/case_study_web_funnel.md) | End-to-end explanation of the funnel analysis case |
-| SQL KPI logic | [Funnel KPI SQL](sql/03_create_gold_funnel_kpis.sql) | Session-level funnel modeling by channel and device |
+| Business case | [Web funnel case study](docs/case_study_web_funnel.md) | End-to-end explanation of the journey analysis case |
+| SQL KPI logic | [Journey KPI SQL](sql/03_create_gold_funnel_kpis.sql) | Session-level customer journey modeling by date and category |
 | Data quality | [Data quality SQL](sql/05_data_quality_checks.sql) | Checks before using dashboard results |
 | Dashboard design | [Power BI dashboard design](powerbi/dashboard_design.md) | Power BI report structure, example visuals, and DAX measures |
-| Visual generation | [Visual generation script](scripts/generate_portfolio_visuals.py) | Reproducible dashboard-style images from sample event data |
-| Project explanation | [Project walkthrough](docs/project_walkthrough.md) | How the project connects tracking, SQL, KPIs, and dashboards |
+| Visual generation | [Visual generation script](scripts/generate_portfolio_visuals.py) | Reproducible dashboard-style visuals for the portfolio |
 
 ## Why This Project
 
-The goal is to show how I approach a web analytics problem: define reliable events, validate raw tracking data, model it into clean analytical tables, and prepare KPI outputs for dashboards and stakeholder decisions.
+The goal is to show how I approach a web analytics problem at a realistic scale: define reliable events, validate raw clickstream data, model customer journey behavior into clean analytical tables, and prepare KPI outputs for dashboards and stakeholder decisions.
 
 This project covers:
 
-- web analytics
-- marketing and product analytics
-- e-commerce funnel analysis
+- large-scale web analytics
+- customer journey and funnel analysis
+- product and category conversion analysis
 - Databricks / SQL analytics workflows
 - Power BI reporting
 - data QA, validation, and KPI definition
 - stakeholder-facing insights
 
-## Business Context
+## Dataset Fit for Web Analyst Roles
 
-An e-commerce team wants to understand how visitors move through the digital shopping journey:
+This dataset is a good fit for web analyst roles because it contains event-level behavior rather than only order summaries.
 
-1. Product view
-2. Add to cart
-3. Begin checkout
-4. Purchase
+| Field type | Example fields | Analytical use |
+|---|---|---|
+| Customer journey | `user_id`, `user_session`, `event_time`, `event_type` | session behavior, repeat activity, funnel movement |
+| Product behavior | `product_id`, `category_code`, `brand`, `price` | product attention, cart intent, purchase conversion |
+| Commercial outcome | `event_type = purchase`, `price` | revenue and conversion analysis |
 
-The goal is to identify funnel drop-off, compare performance across channels and devices, and create reliable KPI tables for dashboarding.
+The dataset does not include traffic source, campaign, device, or country. Those fields are therefore treated as optional enrichment fields rather than invented in the analysis.
 
-## Analytical Capabilities Demonstrated
+## Business Questions
 
-| Capability | Evidence in this project |
-|---|---|
-| Web analytics | Event taxonomy and Matomo tracking plan |
-| SQL and Databricks-style analytics | Bronze, silver, and gold SQL scripts |
-| Power BI reporting | Dashboard design, visual examples, and DAX measure examples |
-| Stakeholder insight | Business questions, case study, and KPI definitions |
-| Data quality | Dedicated QA SQL checks before reporting |
-| Commercial analysis | Funnel, channel, device, product, and revenue analysis |
+- Where does the shopping journey lose users: product view, cart, or purchase?
+- Which categories attract attention but fail to convert?
+- Which brands or product groups generate revenue versus browsing only?
+- How does conversion differ across months or product categories?
+- Can the raw event data be trusted before using it in Power BI?
 
-## Tools and Concepts
+## Gold KPI Tables
 
-- Databricks SQL
-- Medallion-style data modeling
-- Bronze raw data
-- Silver cleaned event data
-- Gold business KPI tables
-- Data QA and validation
-- Power BI dashboard design
-- Matomo web analytics instrumentation planning
-- Google Analytics e-commerce event conventions
+### `gold_daily_journey_kpis`
+
+Daily journey metrics by product category:
+
+- sessions
+- users
+- view sessions
+- cart sessions
+- purchase sessions
+- revenue
+- view-to-cart rate
+- cart-to-purchase rate
+- session conversion rate
+
+### `gold_product_performance`
+
+Product-level performance:
+
+- product views
+- cart sessions
+- purchase sessions
+- revenue
+- average price
+- view-to-purchase rate
 
 ## Repository Structure
 
 ```text
 data/
-  raw_web_events_sample.csv
-  products_sample.csv
+  ecommerce_clickstream_sample.csv
 
 sql/
   01_create_bronze_tables.sql
@@ -90,6 +104,7 @@ sql/
   05_data_quality_checks.sql
 
 docs/
+  source_dataset.md
   project_overview.md
   project_walkthrough.md
   case_study_web_funnel.md
@@ -106,71 +121,14 @@ scripts/
 
 ## How to Run
 
-1. Open Databricks SQL Editor or a SQL notebook.
-2. Run `sql/01_create_bronze_tables.sql` to create sample bronze tables.
-3. Run `sql/02_create_silver_clean_events.sql` to create cleaned event data.
-4. Run `sql/03_create_gold_funnel_kpis.sql` to create daily funnel KPIs.
-5. Run `sql/04_create_gold_product_performance.sql` to create product-level KPIs.
-6. Run `sql/05_data_quality_checks.sql` to inspect data quality issues.
-
-The SQL scripts are designed to be readable and review-friendly. The first script includes an inline sample-data setup so the project can be reviewed without external systems.
-
-## Key Questions
-
-- Which channels drive the most product views and purchases?
-- Where does the funnel lose users?
-- Is the drop-off different on mobile vs desktop?
-- Which products have high views but low purchase conversion?
-- Can the event data be trusted for reporting?
-
-## Gold KPI Tables
-
-### `gold_daily_funnel_kpis`
-
-Daily funnel metrics by channel and device:
-
-- sessions
-- product view sessions
-- add-to-cart sessions
-- checkout sessions
-- purchase sessions
-- revenue
-- view-to-cart rate
-- cart-to-purchase rate
-- session conversion rate
-
-### `gold_product_performance`
-
-Product-level performance:
-
-- product views
-- add-to-cart sessions
-- purchase sessions
-- revenue
-- view-to-purchase rate
-
-## Data Quality Checks
-
-The project includes checks for:
-
-- duplicate event IDs
-- missing session IDs
-- product events without product IDs
-- purchase events without order IDs
-- negative revenue
-- invalid funnel ordering
-
-## Dashboard Pages
-
-The Power BI dashboard is designed with four pages:
-
-1. Executive Overview
-2. E-commerce Funnel
-3. Product Performance
-4. Channel and Device Analysis
-
-See [powerbi/dashboard_design.md](powerbi/dashboard_design.md) for the dashboard layout, example visuals, and DAX measure examples.
+1. Download the public dataset described in [docs/source_dataset.md](docs/source_dataset.md).
+2. Upload a monthly partition or sample file to Databricks.
+3. Run `sql/01_create_bronze_tables.sql` to create the bronze raw event table.
+4. Run `sql/02_create_silver_clean_events.sql` to standardize and validate event fields.
+5. Run `sql/03_create_gold_funnel_kpis.sql` to create daily journey KPIs.
+6. Run `sql/04_create_gold_product_performance.sql` to create product-level KPIs.
+7. Run `sql/05_data_quality_checks.sql` to inspect tracking and data quality issues.
 
 ## Summary
 
-This project demonstrates an end-to-end web analytics workflow: define event taxonomy and business KPIs, validate raw event data, transform it into cleaned silver tables, and create gold KPI tables that can support dashboards and stakeholder decisions.
+This project demonstrates an end-to-end web analytics workflow using a realistic public clickstream dataset: understand the event source, validate raw behavior data, build silver and gold analytical layers in SQL, and design Power BI views that connect customer journey behavior with product performance.
