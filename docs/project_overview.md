@@ -10,17 +10,17 @@ The project models a common digital commerce analytics workflow:
 tracking plan -> raw events -> cleaned events -> gold KPI tables -> dashboard-ready reporting
 ```
 
-The data is synthetic, but the structure mirrors work commonly done in web analytics, product analytics, and commercial analytics.
+The repository uses public-safe sample data so the methodology can be reviewed without exposing private business data.
 
 ## What the Project Demonstrates
 
 - Event taxonomy design
-- Matomo/GA-style tracking planning
+- Matomo and GA-compatible tracking planning
 - SQL-based KPI modeling
 - Bronze, silver, and gold analytics layers
 - Funnel and conversion analysis
 - Product performance analysis
-- Data quality checks
+- Data QA and validation
 - Power BI dashboard planning
 
 ## Key Files
@@ -40,10 +40,10 @@ The data is synthetic, but the structure mirrors work commonly done in web analy
 
 | Capability | Evidence in this project |
 |---|---|
-| Web analytics | Event taxonomy, funnel KPIs, Matomo-style tracking plan |
+| Web analytics | Event taxonomy, funnel KPIs, Matomo tracking plan |
 | SQL analytics | Bronze, silver, and gold SQL scripts |
 | Dashboard preparation | Power BI page design and DAX measure examples |
-| Business analysis | Funnel, channel, device, product, and revenue questions |
+| Marketing and product analysis | Channel, device, product, and conversion questions |
 | Data quality | Explicit QA checks before interpreting performance |
 | Stakeholder communication | Clear KPI definitions and dashboard question framing |
 
