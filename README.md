@@ -1,20 +1,32 @@
 # Web Analytics Portfolio
 
-A compact end-to-end analytics portfolio project for e-commerce web events.
-
-This project demonstrates the workflow commonly used in web, product, and commercial analytics roles:
+A compact analytics portfolio project for e-commerce web events, designed to demonstrate how raw tracking data can become reliable business KPIs and dashboard-ready reporting tables.
 
 ```text
-raw web events -> cleaned validated events -> business-ready KPI tables -> dashboard insights
+tracking plan -> raw web events -> cleaned events -> gold KPI tables -> Power BI dashboard design
 ```
 
 The project uses synthetic data only. It does not contain private business data, customer records, credentials, or production source code.
 
+## Recruiter Quick Scan
+
+If you only have two minutes, start here:
+
+| What to review | File | Why it matters |
+|---|---|---|
+| Fast project overview | `docs/recruiter_quick_scan.md` | Summary of role fit and best files to inspect |
+| Web tracking thinking | `docs/matomo_tracking_plan.md` | How I would define, validate, and use Matomo-style events |
+| Business case | `docs/case_study_web_funnel.md` | End-to-end explanation of the funnel analysis case |
+| SQL KPI logic | `sql/03_create_gold_funnel_kpis.sql` | Session-level funnel modeling by channel and device |
+| Data quality | `sql/05_data_quality_checks.sql` | Checks before trusting dashboard results |
+| Dashboard design | `powerbi/dashboard_design.md` | Power BI report structure and DAX examples |
+| Interview summary | `docs/interview_talking_points.md` | How I would explain the project in an interview |
+
 ## Why This Project
 
-The goal is to show how I would approach a real web analytics problem: define reliable events, validate raw tracking data, model it into clean analytical tables, and prepare KPI outputs for dashboards and stakeholder decisions.
+The goal is to show how I approach a real web analytics problem: define reliable events, validate raw tracking data, model it into clean analytical tables, and prepare KPI outputs for dashboards and stakeholder decisions.
 
-This is especially relevant to roles involving:
+This is relevant to roles involving:
 
 - web analytics
 - product analytics
@@ -22,6 +34,7 @@ This is especially relevant to roles involving:
 - Databricks / SQL analytics workflows
 - Power BI reporting
 - data quality and KPI definition
+- stakeholder-facing insights
 
 ## Business Context
 
@@ -33,6 +46,17 @@ An e-commerce team wants to understand how visitors move through the digital sho
 4. Purchase
 
 The goal is to identify funnel drop-off, compare performance across channels and devices, and create reliable KPI tables for dashboarding.
+
+## Role-Fit Mapping
+
+| Job requirement | Evidence in this project |
+|---|---|
+| Web analytics / Matomo thinking | Event taxonomy and Matomo tracking plan |
+| SQL and Databricks-style analytics | Bronze, silver, and gold SQL scripts |
+| Power BI reporting | Dashboard design and DAX measure examples |
+| Stakeholder insight | Business questions, case study, and KPI definitions |
+| Data quality | Dedicated QA SQL checks before reporting |
+| Commercial mindset | Funnel, channel, device, product, and revenue analysis |
 
 ## Tools and Concepts
 
@@ -60,9 +84,11 @@ sql/
   05_data_quality_checks.sql
 
 docs/
+  recruiter_quick_scan.md
+  case_study_web_funnel.md
   event_taxonomy.md
+  matomo_tracking_plan.md
   interview_talking_points.md
-  dashboard_screenshots/
 
 powerbi/
   dashboard_design.md
@@ -140,3 +166,12 @@ See `powerbi/dashboard_design.md` for the dashboard layout and DAX measure examp
 This project demonstrates how I would approach a web analytics pipeline:
 
 > I start by defining event taxonomy and business KPIs, validate raw event data, transform it into cleaned silver tables, and then create gold KPI tables that can support dashboards and stakeholder decisions.
+
+## Next Improvements
+
+The next improvements are:
+
+- add Databricks query result screenshots
+- build a Power BI report from the gold tables
+- add dashboard screenshots
+- extend the data model with campaign, promotion, and customer segment fields
