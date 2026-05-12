@@ -16,14 +16,14 @@ The data is synthetic, but the structure mirrors work commonly done in web analy
 
 | Area | File | What it shows |
 |---|---|---|
-| Project overview | `README.md` | End-to-end workflow and business context |
-| Tracking thinking | `docs/event_taxonomy.md` | Event definitions, properties, and QA rules |
-| Matomo/GA thinking | `docs/matomo_tracking_plan.md` | How I would plan and validate web tracking |
-| SQL modeling | `sql/03_create_gold_funnel_kpis.sql` | Funnel KPI logic by channel and device |
-| Product analytics | `sql/04_create_gold_product_performance.sql` | Product-level conversion and revenue logic |
-| Data quality | `sql/05_data_quality_checks.sql` | Checks before trusting dashboard results |
-| Dashboard design | `powerbi/dashboard_design.md` | Power BI page design and measures |
-| Interview summary | `docs/interview_talking_points.md` | How I would explain the project in an interview |
+| Project overview | [README](../README.md) | End-to-end workflow and business context |
+| Tracking thinking | [Event taxonomy](event_taxonomy.md) | Event definitions, properties, and QA rules |
+| Matomo/GA thinking | [Matomo tracking plan](matomo_tracking_plan.md) | How I would plan and validate web tracking |
+| SQL modeling | [Funnel KPI SQL](../sql/03_create_gold_funnel_kpis.sql) | Funnel KPI logic by channel and device |
+| Product analytics | [Product performance SQL](../sql/04_create_gold_product_performance.sql) | Product-level conversion and revenue logic |
+| Data quality | [Data quality SQL](../sql/05_data_quality_checks.sql) | Checks before trusting dashboard results |
+| Dashboard design | [Power BI dashboard design](../powerbi/dashboard_design.md) | Power BI page design and measures |
+| Interview summary | [Interview talking points](interview_talking_points.md) | How I would explain the project in an interview |
 
 ## Skills Shown
 
