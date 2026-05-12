@@ -8,25 +8,23 @@ tracking plan -> raw web events -> cleaned events -> gold KPI tables -> Power BI
 
 The project uses synthetic data only. It does not contain private business data, customer records, credentials, or production source code.
 
-## Recruiter Quick Scan
+## Project Entry Points
 
-If you only have two minutes, start here:
-
-| What to review | File | Why it matters |
+| Area | File | What it shows |
 |---|---|---|
-| Fast project overview | [Recruiter quick scan](docs/recruiter_quick_scan.md) | Summary of role fit and best files to inspect |
-| Web tracking thinking | [Matomo tracking plan](docs/matomo_tracking_plan.md) | How I would define, validate, and use Matomo-style events |
+| Project summary | [Project overview](docs/project_overview.md) | Structure, scope, and analytical capabilities demonstrated |
+| Web tracking | [Matomo tracking plan](docs/matomo_tracking_plan.md) | How I would define, validate, and use Matomo-style events |
 | Business case | [Web funnel case study](docs/case_study_web_funnel.md) | End-to-end explanation of the funnel analysis case |
 | SQL KPI logic | [Funnel KPI SQL](sql/03_create_gold_funnel_kpis.sql) | Session-level funnel modeling by channel and device |
-| Data quality | [Data quality SQL](sql/05_data_quality_checks.sql) | Checks before trusting dashboard results |
+| Data quality | [Data quality SQL](sql/05_data_quality_checks.sql) | Checks before using dashboard results |
 | Dashboard design | [Power BI dashboard design](powerbi/dashboard_design.md) | Power BI report structure and DAX examples |
-| Interview summary | [Interview talking points](docs/interview_talking_points.md) | How I would explain the project in an interview |
+| Project explanation | [Project walkthrough](docs/project_walkthrough.md) | How the project connects tracking, SQL, KPIs, and dashboards |
 
 ## Why This Project
 
-The goal is to show how I approach a real web analytics problem: define reliable events, validate raw tracking data, model it into clean analytical tables, and prepare KPI outputs for dashboards and stakeholder decisions.
+The goal is to show how I approach a web analytics problem: define reliable events, validate raw tracking data, model it into clean analytical tables, and prepare KPI outputs for dashboards and stakeholder decisions.
 
-This is relevant to roles involving:
+This project covers:
 
 - web analytics
 - product analytics
@@ -47,16 +45,16 @@ An e-commerce team wants to understand how visitors move through the digital sho
 
 The goal is to identify funnel drop-off, compare performance across channels and devices, and create reliable KPI tables for dashboarding.
 
-## Role-Fit Mapping
+## Analytical Capabilities Demonstrated
 
-| Job requirement | Evidence in this project |
+| Capability | Evidence in this project |
 |---|---|
-| Web analytics / Matomo thinking | Event taxonomy and Matomo tracking plan |
+| Web analytics | Event taxonomy and Matomo-style tracking plan |
 | SQL and Databricks-style analytics | Bronze, silver, and gold SQL scripts |
 | Power BI reporting | Dashboard design and DAX measure examples |
 | Stakeholder insight | Business questions, case study, and KPI definitions |
 | Data quality | Dedicated QA SQL checks before reporting |
-| Commercial mindset | Funnel, channel, device, product, and revenue analysis |
+| Commercial analysis | Funnel, channel, device, product, and revenue analysis |
 
 ## Tools and Concepts
 
@@ -84,11 +82,11 @@ sql/
   05_data_quality_checks.sql
 
 docs/
-  recruiter_quick_scan.md
+  project_overview.md
+  project_walkthrough.md
   case_study_web_funnel.md
   event_taxonomy.md
   matomo_tracking_plan.md
-  interview_talking_points.md
 
 powerbi/
   dashboard_design.md
@@ -103,7 +101,7 @@ powerbi/
 5. Run `sql/04_create_gold_product_performance.sql` to create product-level KPIs.
 6. Run `sql/05_data_quality_checks.sql` to inspect data quality issues.
 
-The SQL scripts are designed to be readable and interview-friendly. The first script includes an inline sample-data setup so the project can be reviewed without external systems.
+The SQL scripts are designed to be readable and review-friendly. The first script includes an inline sample-data setup so the project can be reviewed without external systems.
 
 ## Key Questions
 
@@ -161,11 +159,9 @@ The Power BI dashboard is designed with four pages:
 
 See `powerbi/dashboard_design.md` for the dashboard layout and DAX measure examples.
 
-## Interview Summary
+## Summary
 
-This project demonstrates how I would approach a web analytics pipeline:
-
-> I start by defining event taxonomy and business KPIs, validate raw event data, transform it into cleaned silver tables, and then create gold KPI tables that can support dashboards and stakeholder decisions.
+This project demonstrates an end-to-end web analytics workflow: define event taxonomy and business KPIs, validate raw event data, transform it into cleaned silver tables, and create gold KPI tables that can support dashboards and stakeholder decisions.
 
 ## Next Improvements
 
