@@ -147,7 +147,7 @@ Before sharing the dashboard, I would check:
 - no chart relies on raw event-level rows when a gold table should be used
 - dashboard insights are tied to a suggested next action
 
-## Portfolio Screenshot Checklist
+## Screenshot Checklist
 
 After building the report, add screenshots to a `docs/dashboard_screenshots/` folder:
 
