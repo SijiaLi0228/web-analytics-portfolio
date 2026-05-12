@@ -1,19 +1,19 @@
 # Web Analytics Portfolio
 
-A compact analytics portfolio project for e-commerce web events, designed to demonstrate how raw tracking data can become reliable business KPIs and dashboard-ready reporting tables.
+An e-commerce web analytics project demonstrating how raw tracking data can become reliable business KPIs and dashboard-ready reporting tables.
 
 ```text
 tracking plan -> raw web events -> cleaned events -> gold KPI tables -> Power BI dashboard design
 ```
 
-The project uses synthetic data only. It does not contain private business data, customer records, credentials, or production source code.
+This repository uses public-safe sample data so the methodology can be shared without exposing private business data, customer records, credentials, or production source code.
 
 ## Project Entry Points
 
 | Area | File | What it shows |
 |---|---|---|
 | Project summary | [Project overview](docs/project_overview.md) | Structure, scope, and analytical capabilities demonstrated |
-| Web tracking | [Matomo tracking plan](docs/matomo_tracking_plan.md) | How I would define, validate, and use Matomo-style events |
+| Web tracking | [Matomo tracking plan](docs/matomo_tracking_plan.md) | How Matomo events can be defined, validated, and modeled |
 | Business case | [Web funnel case study](docs/case_study_web_funnel.md) | End-to-end explanation of the funnel analysis case |
 | SQL KPI logic | [Funnel KPI SQL](sql/03_create_gold_funnel_kpis.sql) | Session-level funnel modeling by channel and device |
 | Data quality | [Data quality SQL](sql/05_data_quality_checks.sql) | Checks before using dashboard results |
@@ -27,11 +27,11 @@ The goal is to show how I approach a web analytics problem: define reliable even
 This project covers:
 
 - web analytics
-- product analytics
+- marketing and product analytics
 - e-commerce funnel analysis
 - Databricks / SQL analytics workflows
 - Power BI reporting
-- data quality and KPI definition
+- data QA, validation, and KPI definition
 - stakeholder-facing insights
 
 ## Business Context
@@ -49,7 +49,7 @@ The goal is to identify funnel drop-off, compare performance across channels and
 
 | Capability | Evidence in this project |
 |---|---|
-| Web analytics | Event taxonomy and Matomo-style tracking plan |
+| Web analytics | Event taxonomy and Matomo tracking plan |
 | SQL and Databricks-style analytics | Bronze, silver, and gold SQL scripts |
 | Power BI reporting | Dashboard design and DAX measure examples |
 | Stakeholder insight | Business questions, case study, and KPI definitions |
@@ -63,9 +63,9 @@ The goal is to identify funnel drop-off, compare performance across channels and
 - Bronze raw data
 - Silver cleaned event data
 - Gold business KPI tables
-- Data quality checks
+- Data QA and validation
 - Power BI dashboard design
-- Web analytics concepts inspired by Matomo / Google Analytics event tracking
+- Matomo and Google Analytics event tracking concepts
 
 ## Repository Structure
 
