@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="640" viewBox="0 0 980 640" role="img" aria-label="web analytics portfolio chart">
+  <rect width="100%" height="100%" fill="#f7f8fb"/>
+  <style>
+    .title{font:700 28px Arial, sans-serif;fill:#1f2937}
+    .subtitle{font:400 14px Arial, sans-serif;fill:#5f6b7a}
+    .h{font:700 16px Arial, sans-serif;fill:#1f2937}
+    .label{font:400 13px Arial, sans-serif;fill:#5f6b7a}
+    .value{font:700 24px Arial, sans-serif;fill:#1f2937}
+    .small{font:400 12px Arial, sans-serif;fill:#5f6b7a}
+  </style>
+  <text x="40" y="50" class="title">E-commerce Web Analytics Dashboard</text>
+  <text x="40" y="76" class="subtitle">Sample output: tracking events -&gt; gold KPI tables -&gt; stakeholder-ready reporting</text>
+  <rect x="40" y="105" width="164" height="100" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="56" y="133" class="label">Sessions</text>
+  <text x="56" y="167" class="value">9</text>
+  <text x="56" y="191" class="small">distinct session_id</text>
+  <rect x="224" y="105" width="164" height="100" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="240" y="133" class="label">Purchases</text>
+  <text x="240" y="167" class="value">3</text>
+  <text x="240" y="191" class="small">33.3% conversion</text>
+  <rect x="408" y="105" width="164" height="100" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="424" y="133" class="label">Revenue</text>
+  <text x="424" y="167" class="value">DKK 1,397</text>
+  <text x="424" y="191" class="small">purchase events</text>
+  <rect x="592" y="105" width="164" height="100" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="608" y="133" class="label">View -&gt; Cart</text>
+  <text x="608" y="167" class="value">66.7%</text>
+  <text x="608" y="191" class="small">session level</text>
+  <rect x="776" y="105" width="164" height="100" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="792" y="133" class="label">Cart -&gt; Purchase</text>
+  <text x="792" y="167" class="value">50.0%</text>
+  <text x="792" y="191" class="small">session level</text>
+  <rect x="40" y="245" width="420" height="300" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="64" y="280" class="h">Funnel by Session</text>
+  <text x="64" y="332" class="label">Product view</text>
+  <rect x="180" y="315" width="300.0" height="24" rx="4" fill="#1f5f8b"/>
+  <text x="490.0" y="332" class="small">9</text>
+  <text x="64" y="380" class="label">Add to cart</text>
+  <rect x="180" y="363" width="200.0" height="24" rx="4" fill="#2f9e8f"/>
+  <text x="390.0" y="380" class="small">6</text>
+  <text x="64" y="428" class="label">Checkout</text>
+  <rect x="180" y="411" width="100.0" height="24" rx="4" fill="#e6a23c"/>
+  <text x="290.0" y="428" class="small">3</text>
+  <text x="64" y="476" class="label">Purchase</text>
+  <rect x="180" y="459" width="100.0" height="24" rx="4" fill="#c95f4f"/>
+  <text x="290.0" y="476" class="small">3</text>
+  <rect x="500" y="245" width="440" height="300" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="524" y="280" class="h">Revenue by Channel</text>
+  <rect x="540" y="320.0" width="42" height="180.0" rx="4" fill="#1f5f8b"/>
+  <text x="561" y="520" text-anchor="middle" class="small">email</text>
+  <text x="561" y="312.0" text-anchor="middle" class="small">599</text>
+  <rect x="612" y="350.1" width="42" height="149.9" rx="4" fill="#1f5f8b"/>
+  <text x="633" y="520" text-anchor="middle" class="small">referral</text>
+  <text x="633" y="342.1" text-anchor="middle" class="small">499</text>
+  <rect x="684" y="410.2" width="42" height="89.8" rx="4" fill="#1f5f8b"/>
+  <text x="705" y="520" text-anchor="middle" class="small">organic</text>
+  <text x="705" y="402.2" text-anchor="middle" class="small">299</text>
+  <rect x="756" y="500.0" width="42" height="0.0" rx="4" fill="#1f5f8b"/>
+  <text x="777" y="520" text-anchor="middle" class="small">direct</text>
+  <text x="777" y="492.0" text-anchor="middle" class="small">0</text>
+  <rect x="828" y="500.0" width="42" height="0.0" rx="4" fill="#1f5f8b"/>
+  <text x="849" y="520" text-anchor="middle" class="small">paid</text>
+  <text x="849" y="492.0" text-anchor="middle" class="small">0</text>
+  <text x="40" y="595" class="small">Interpretation: paid traffic creates visits but no purchases in this sample, while email/referral show higher revenue quality.</text>
+</svg>
