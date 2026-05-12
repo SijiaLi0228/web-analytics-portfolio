@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500" role="img" aria-label="web analytics portfolio chart">
+  <rect width="100%" height="100%" fill="#f7f8fb"/>
+  <style>
+    .title{font:700 28px Arial, sans-serif;fill:#1f2937}
+    .subtitle{font:400 14px Arial, sans-serif;fill:#5f6b7a}
+    .h{font:700 16px Arial, sans-serif;fill:#1f2937}
+    .label{font:400 13px Arial, sans-serif;fill:#5f6b7a}
+    .value{font:700 24px Arial, sans-serif;fill:#1f2937}
+    .small{font:400 12px Arial, sans-serif;fill:#5f6b7a}
+  </style>
+  <text x="40" y="50" class="title">Product Performance</text>
+  <text x="40" y="76" class="subtitle">Attention, purchase conversion, and revenue by product.</text>
+  <rect x="40" y="110" width="820" height="310" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="65" y="168" class="label">Classroom Bundle</text>
+  <rect x="245" y="150" width="280.0" height="20" rx="4" fill="#1f5f8b"/>
+  <text x="535.0" y="166" class="small">DKK 599</text>
+  <rect x="600" y="150" width="220.0" height="20" rx="4" fill="#2f9e8f"/>
+  <text x="830.0" y="166" class="small">50%</text>
+  <text x="65" y="226" class="label">Advanced Kit</text>
+  <rect x="245" y="208" width="233.3" height="20" rx="4" fill="#1f5f8b"/>
+  <text x="488.3" y="224" class="small">DKK 499</text>
+  <rect x="600" y="208" width="220.0" height="20" rx="4" fill="#2f9e8f"/>
+  <text x="830.0" y="224" class="small">50%</text>
+  <text x="65" y="284" class="label">Starter Kit</text>
+  <rect x="245" y="266" width="139.8" height="20" rx="4" fill="#1f5f8b"/>
+  <text x="394.8" y="282" class="small">DKK 299</text>
+  <rect x="600" y="266" width="146.7" height="20" rx="4" fill="#2f9e8f"/>
+  <text x="756.7" y="282" class="small">33%</text>
+  <text x="65" y="342" class="label">Accessory Pack</text>
+  <rect x="245" y="324" width="0.0" height="20" rx="4" fill="#1f5f8b"/>
+  <text x="255.0" y="340" class="small">DKK 0</text>
+  <rect x="600" y="324" width="0.0" height="20" rx="4" fill="#2f9e8f"/>
+  <text x="610.0" y="340" class="small">0%</text>
+  <text x="245" y="132" class="small">Revenue</text>
+  <text x="600" y="132" class="small">View-to-purchase rate</text>
+  <text x="40" y="460" class="small">Analytical use: identify products with high attention but weak purchase conversion for content, pricing, availability, or checkout follow-up.</text>
+</svg>
