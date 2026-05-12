@@ -1,8 +1,8 @@
 # Matomo Tracking Plan
 
-This document shows how I would plan, validate, and use Matomo-style web tracking for an e-commerce analytics project.
+This document shows how I would plan, validate, and use Matomo web tracking for an e-commerce analytics project.
 
-The same thinking can also be adapted to Google Analytics, server-side logs, or exported web event data.
+The same methodology can also be adapted to Google Analytics, server-side logs, or exported web event data.
 
 ## 1. Tracking Objective
 
@@ -16,7 +16,7 @@ The tracking setup should help answer these business questions:
 
 ## 2. Core Events
 
-| Journey step | Matomo-style event category | Event action | Event name example | Required properties |
+| Journey step | Event category | Event action | Event name example | Required properties |
 |---|---|---|---|---|
 | Product page viewed | Ecommerce | View Item | `view_item` | `product_id`, `category`, `price`, `session_id` |
 | Add to cart | Ecommerce | Add To Cart | `add_to_cart` | `product_id`, `quantity`, `session_id` |
@@ -64,7 +64,7 @@ Matomo event export
   -> Power BI dashboard
 ```
 
-The SQL files in this repository simulate the modeling step after event data has been collected.
+The SQL files in this repository demonstrate the modeling step after event data has been collected.
 
 ## 6. Reporting Output
 
@@ -90,8 +90,6 @@ For stakeholder meetings, I would use the tracking data to answer:
 - What should be tested next?
 - Which KPI should be monitored weekly?
 
-## 8. Interview Talking Point
+## 8. Design Rationale
 
-A concise way to explain this:
-
-> I would not start by building a dashboard directly. I would first agree on the key journey events, define required properties, validate whether tracking is reliable, and only then build funnel and product KPIs for reporting. This prevents stakeholders from making decisions based on broken or incomplete tracking.
+The dashboard should not start from chart types. It should start from agreed journey events, required properties, and validation rules. This prevents stakeholders from making decisions based on broken or incomplete tracking.
