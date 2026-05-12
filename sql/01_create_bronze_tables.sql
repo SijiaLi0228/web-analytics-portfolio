@@ -1,5 +1,5 @@
 -- Databricks SQL
--- Create bronze tables from synthetic CSV files after uploading them to Databricks.
+-- Create bronze tables from public-safe sample CSV files after uploading them to Databricks.
 -- If using the UI, upload the CSV files first and create tables with the same names.
 
 create or replace table bronze_web_events (
