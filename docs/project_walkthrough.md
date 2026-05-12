@@ -4,7 +4,7 @@ This document explains the project from business question to analytics output.
 
 ## 1. Project Summary
 
-This is a synthetic e-commerce web analytics project that simulates the workflow from web tracking to business reporting.
+This is an e-commerce web analytics project using public-safe sample data to simulate the workflow from web tracking to business reporting.
 
 The project defines core funnel events, cleans and validates event data, builds gold tables for daily funnel and product performance, and designs a Power BI dashboard structure for recurring reporting.
 
@@ -17,7 +17,7 @@ The focus is not only writing SQL. It is also about defining reliable events, ch
 ## 3. Data Pipeline
 
 ```text
-Matomo-style tracking plan
+Matomo tracking plan
   -> bronze_web_events_sample
   -> silver_clean_events
   -> gold_daily_funnel_kpis
