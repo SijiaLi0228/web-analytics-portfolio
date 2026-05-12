@@ -6,7 +6,7 @@ An e-commerce team wants to understand how users move from product discovery to 
 
 The main business question is:
 
-> Which parts of the digital shopping journey should we investigate first to improve conversion and revenue?
+> Which parts of the digital shopping journey should be investigated first to improve conversion and revenue?
 
 ## 2. Analytical Objective
 
@@ -77,7 +77,7 @@ max(case when event_name = 'purchase' then 1 else 0 end) as purchased
 
 ## 6. Data Quality Checks
 
-Before interpreting funnel results, I check whether the tracking data is reliable.
+Before interpreting funnel results, the tracking data should be validated.
 
 The project includes checks for:
 
@@ -103,9 +103,9 @@ The dashboard is designed to support both high-level management review and deepe
 
 ## 8. Example Stakeholder Interpretation
 
-If mobile traffic has high product views but lower cart-to-purchase conversion, I would not immediately conclude that mobile users are less valuable.
+If mobile traffic has high product views but lower cart-to-purchase conversion, the interpretation should not stop at "mobile users are less valuable."
 
-I would first check:
+The next checks would include:
 
 - whether mobile events are tracked correctly
 - whether checkout events are missing on mobile
@@ -115,17 +115,17 @@ I would first check:
 
 This approach separates tracking quality, user experience, and commercial performance.
 
-## 9. How I Would Present This in an Interview
+## 9. Project Explanation
 
-I would explain the project like this:
+This project demonstrates the analytics workflow behind web and product reporting: define event requirements, clean raw events, validate tracking quality, build gold KPI tables in SQL, and design a Power BI dashboard around stakeholder questions.
 
-> I created this project to practice the analytics workflow behind web and product reporting. I start from event definitions, clean the raw events, validate the tracking quality, build gold KPI tables in SQL, and design a Power BI dashboard around stakeholder questions. The goal is not just to calculate metrics, but to make sure the metrics are trustworthy and actionable.
+The goal is not just to calculate metrics. The goal is to make sure the metrics are trustworthy and actionable.
 
 ## 10. Next Improvements
 
 The next improvements would be:
 
-- connect a real Matomo or Google Analytics export
+- connect Matomo or GA event exports
 - add promotion and campaign fields
 - add screenshot evidence from Databricks query results
 - build the Power BI report from the gold tables
