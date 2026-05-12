@@ -24,7 +24,7 @@ The goal is to make funnel reporting reliable by agreeing on event names, trigge
 
 ## Tracking Notes
 
-The event names are inspired by common web analytics tools such as Matomo and Google Analytics. The goal is to keep event definitions consistent so downstream funnel metrics can be trusted.
+The event names follow common Matomo and Google Analytics e-commerce tracking patterns. The goal is to keep event definitions consistent so downstream funnel metrics can be trusted.
 
 ## Segmentation Properties
 
