@@ -1,14 +1,27 @@
 # Web Analytics Portfolio
 
-This project demonstrates a small end-to-end analytics workflow for e-commerce web events.
+A compact end-to-end analytics portfolio project for e-commerce web events.
 
-It is designed around the type of workflow used in web/product analytics roles:
+This project demonstrates the workflow commonly used in web, product, and commercial analytics roles:
 
 ```text
 raw web events -> cleaned validated events -> business-ready KPI tables -> dashboard insights
 ```
 
 The project uses synthetic data only. It does not contain private business data, customer records, credentials, or production source code.
+
+## Why This Project
+
+The goal is to show how I would approach a real web analytics problem: define reliable events, validate raw tracking data, model it into clean analytical tables, and prepare KPI outputs for dashboards and stakeholder decisions.
+
+This is especially relevant to roles involving:
+
+- web analytics
+- product analytics
+- e-commerce funnel analysis
+- Databricks / SQL analytics workflows
+- Power BI reporting
+- data quality and KPI definition
 
 ## Business Context
 
@@ -48,11 +61,23 @@ sql/
 
 docs/
   event_taxonomy.md
+  interview_talking_points.md
   dashboard_screenshots/
 
 powerbi/
   dashboard_design.md
 ```
+
+## How to Run
+
+1. Open Databricks SQL Editor or a SQL notebook.
+2. Run `sql/01_create_bronze_tables.sql` to create sample bronze tables.
+3. Run `sql/02_create_silver_clean_events.sql` to create cleaned event data.
+4. Run `sql/03_create_gold_funnel_kpis.sql` to create daily funnel KPIs.
+5. Run `sql/04_create_gold_product_performance.sql` to create product-level KPIs.
+6. Run `sql/05_data_quality_checks.sql` to inspect data quality issues.
+
+The SQL scripts are designed to be readable and interview-friendly. The first script includes an inline sample-data setup so the project can be reviewed without external systems.
 
 ## Key Questions
 
@@ -108,7 +133,7 @@ The Power BI dashboard is designed with four pages:
 3. Product Performance
 4. Channel and Device Analysis
 
-See `powerbi/dashboard_design.md` for the dashboard layout.
+See `powerbi/dashboard_design.md` for the dashboard layout and DAX measure examples.
 
 ## Interview Summary
 
