@@ -1,73 +1,69 @@
 # Event Taxonomy
 
-This event taxonomy defines the core e-commerce events used in the portfolio.
+This event taxonomy defines how the public clickstream source events are interpreted for web analytics reporting.
 
-The goal is to make funnel reporting reliable by agreeing on event names, triggers, required properties, and quality rules before building dashboards.
+The dataset contains product-level behavior. The taxonomy normalizes raw source events into journey steps that can support funnel, product, and category analysis.
 
-## Core Funnel Events
+## Core Journey Events
 
-| Event name | Trigger | Required properties | Business question | QA rule |
-|---|---|---|---|---|
-| `view_item` | Product page loaded | `event_id`, `session_id`, `user_id`, `event_time`, `product_id`, `channel`, `device` | Which products receive attention? | `product_id` should not be null |
-| `add_to_cart` | Add-to-cart button clicked | `event_id`, `session_id`, `user_id`, `event_time`, `product_id`, `quantity` | Which products move from interest to intent? | Should usually happen after `view_item` in the same session |
-| `begin_checkout` | Checkout journey started | `event_id`, `session_id`, `user_id`, `event_time`, `product_id`, `cart_value` | Where does checkout intent begin? | `session_id` should not be null |
-| `purchase` | Order confirmed | `event_id`, `session_id`, `user_id`, `event_time`, `product_id`, `order_id`, `revenue` | What converts to sales? | `order_id` should be unique and revenue should be non-negative |
+| Source event | Normalized event name | Trigger | Required properties | Business question | QA rule |
+|---|---|---|---|---|---|
+| `view` | `view_item` | Product was viewed | `event_time`, `product_id`, `user_id`, `user_session` | Which products receive attention? | `product_id` and `user_session` should not be null |
+| `cart` | `add_to_cart` | Product was added to cart | `event_time`, `product_id`, `user_id`, `user_session` | Which products move from interest to intent? | Should usually happen after a product view in the same session |
+| `remove_from_cart` | `remove_from_cart` | Product was removed from cart | `event_time`, `product_id`, `user_id`, `user_session` | Where might cart friction appear? | Should usually follow a cart event |
+| `purchase` | `purchase` | Product was purchased | `event_time`, `product_id`, `user_id`, `user_session`, `price` | What converts to revenue? | Price should be non-negative |
 
-## Supporting Events
+## Optional Matomo / GA Events Not Present in Source
 
-| Event name | Trigger | Useful properties | Why it matters |
-|---|---|---|---|
-| `site_search` | Search form submitted | `search_term`, `results_count`, `session_id` | Helps identify demand and search friction |
-| `promotion_click` | Promotion or banner clicked | `campaign`, `placement`, `session_id` | Connects campaign exposure to behavior |
-| `filter_used` | Product filter applied | `filter_type`, `filter_value`, `session_id` | Helps explain product discovery behavior |
-| `checkout_error` | Checkout error shown | `error_type`, `checkout_step`, `session_id` | Helps diagnose checkout drop-off |
+The selected public dataset does not include every event a company would normally track. In a production Matomo setup, I would also define:
 
-## Tracking Notes
+| Event name | Why it would matter |
+|---|---|
+| `site_search` | Search demand and search-result quality |
+| `promotion_click` | Campaign and placement engagement |
+| `begin_checkout` | Checkout intent before purchase |
+| `checkout_error` | Checkout friction and technical issues |
+| `lead_form_submit` | Lead generation performance |
 
-The event names follow common Matomo and Google Analytics e-commerce tracking patterns. The goal is to keep event definitions consistent so downstream funnel metrics can be trusted.
+These are listed as production tracking extensions, not as fields invented in the public dataset.
 
 ## Segmentation Properties
 
-Useful segmentation fields:
+Available in the selected dataset:
+
+- product_id
+- category_id
+- category_code
+- brand
+- price
+- user_id
+- user_session
+- event_date
+- event_month
+
+Optional enrichment fields for a real company setup:
 
 - channel
 - campaign
 - device
 - country
-- product_id
-- category
-- session_id
-- user_id
-- event_date
 - new vs returning visitor
 - promotion name
 
-## Acceptance Criteria
-
-Before using the events in reporting, I would check:
-
-- each event has a clear business purpose
-- event names follow one naming convention
-- required properties are populated
-- product IDs match the product catalog
-- purchase revenue matches order data
-- mobile and desktop tracking follow the same rules
-- consent and privacy requirements are respected
-
 ## Data Quality Rules
 
-- Every event must have `event_id`, `session_id`, and `event_time`.
+- Every event should have `event_time`, `event_type`, `user_id`, and `user_session`.
 - Product-related events should have `product_id`.
-- Purchase events should have `order_id` and non-negative `revenue`.
-- Duplicate `event_id` values should be investigated.
+- Purchase events should have non-negative `price`.
+- Unknown event types should be reviewed before modeling.
 - Sudden changes in event volume should be checked against tracking releases or site changes.
-- Sessions with purchase but no checkout or add-to-cart event should be reviewed before drawing business conclusions.
+- Sessions with purchases but no earlier cart or view event should be treated carefully before drawing business conclusions.
 
 ## Stakeholder Questions Supported
 
 This taxonomy supports questions such as:
 
 - Which products generate interest but do not convert?
-- Which channel or device has the weakest funnel step?
-- Is a conversion issue caused by user behavior, tracking quality, or checkout friction?
-- Which events should be monitored weekly?
+- Which category has the weakest journey step?
+- Is a conversion issue caused by user behavior, tracking quality, or product/checkout friction?
+- Which event should be monitored weekly?
