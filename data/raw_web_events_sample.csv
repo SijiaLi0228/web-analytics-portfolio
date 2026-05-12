@@ -1,0 +1,22 @@
+event_id,session_id,user_id,event_time,channel,device,country,event_name,product_id,order_id,revenue
+e001,s001,u001,2026-05-01 09:00:00,organic,desktop,DK,view_item,p001,,
+e002,s001,u001,2026-05-01 09:02:00,organic,desktop,DK,add_to_cart,p001,,
+e003,s001,u001,2026-05-01 09:04:00,organic,desktop,DK,begin_checkout,p001,,
+e004,s001,u001,2026-05-01 09:07:00,organic,desktop,DK,purchase,p001,o001,299.00
+e005,s002,u002,2026-05-01 10:00:00,paid,mobile,DK,view_item,p002,,
+e006,s002,u002,2026-05-01 10:03:00,paid,mobile,DK,add_to_cart,p002,,
+e007,s003,u003,2026-05-01 11:00:00,direct,mobile,SE,view_item,p003,,
+e008,s004,u004,2026-05-02 12:00:00,organic,desktop,DK,view_item,p001,,
+e009,s004,u004,2026-05-02 12:03:00,organic,desktop,DK,add_to_cart,p001,,
+e010,s005,u005,2026-05-02 13:00:00,paid,desktop,NO,view_item,p004,,
+e011,s005,u005,2026-05-02 13:06:00,paid,desktop,NO,begin_checkout,p004,,
+e012,s006,u006,2026-05-02 14:00:00,referral,mobile,DK,view_item,p002,,
+e013,s006,u006,2026-05-02 14:04:00,referral,mobile,DK,add_to_cart,p002,,
+e014,s006,u006,2026-05-02 14:08:00,referral,mobile,DK,begin_checkout,p002,,
+e015,s006,u006,2026-05-02 14:12:00,referral,mobile,DK,purchase,p002,o002,499.00
+e016,s007,u007,2026-05-03 09:30:00,organic,mobile,DK,view_item,p003,,
+e017,s007,u007,2026-05-03 09:34:00,organic,mobile,DK,add_to_cart,p003,,
+e018,s008,u008,2026-05-03 10:15:00,paid,mobile,DK,view_item,p001,,
+e019,s009,u009,2026-05-03 10:45:00,email,desktop,DE,view_item,p004,,
+e020,s009,u009,2026-05-03 10:48:00,email,desktop,DE,add_to_cart,p004,,
+e021,s009,u009,2026-05-03 10:55:00,email,desktop,DE,purchase,p004,o003,599.00
