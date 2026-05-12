@@ -1,0 +1,5 @@
+product_id,product_name,category,list_price
+p001,Starter Kit,Education,299.00
+p002,Advanced Kit,Education,499.00
+p003,Accessory Pack,Education,199.00
+p004,Classroom Bundle,Education,599.00
