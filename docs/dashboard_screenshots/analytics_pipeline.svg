@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360" role="img" aria-label="web analytics portfolio chart">
+  <rect width="100%" height="100%" fill="#f7f8fb"/>
+  <style>
+    .title{font:700 28px Arial, sans-serif;fill:#1f2937}
+    .subtitle{font:400 14px Arial, sans-serif;fill:#5f6b7a}
+    .h{font:700 16px Arial, sans-serif;fill:#1f2937}
+    .label{font:400 13px Arial, sans-serif;fill:#5f6b7a}
+    .value{font:700 24px Arial, sans-serif;fill:#1f2937}
+    .small{font:400 12px Arial, sans-serif;fill:#5f6b7a}
+  </style>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1f5f8b"/></marker></defs>
+  <text x="40" y="50" class="title">Analytics Pipeline</text>
+  <text x="40" y="76" class="subtitle">Production-style flow demonstrated with public-safe sample data</text>
+  <rect x="40" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="111" y="178" text-anchor="middle" class="h">Tracking Plan</text>
+  <text x="111" y="207" text-anchor="middle" class="small">events, properties, QA</text>
+  <path d="M188 190 L212 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="220" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="291" y="178" text-anchor="middle" class="h">Raw Events</text>
+  <text x="291" y="207" text-anchor="middle" class="small">sessions, users, products</text>
+  <path d="M368 190 L392 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="400" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="471" y="178" text-anchor="middle" class="h">Silver Events</text>
+  <text x="471" y="207" text-anchor="middle" class="small">cleaned fields, dates</text>
+  <path d="M548 190 L572 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="580" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="651" y="178" text-anchor="middle" class="h">Gold KPI Tables</text>
+  <text x="651" y="207" text-anchor="middle" class="small">funnel, product, channel</text>
+  <path d="M728 190 L752 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="760" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
+  <text x="831" y="178" text-anchor="middle" class="h">Power BI</text>
+  <text x="831" y="207" text-anchor="middle" class="small">dashboard pages, measures</text>
+  <text x="40" y="315" class="small">QA principle: validate tracking and data completeness before interpreting funnel movement as a business issue.</text>
+</svg>
