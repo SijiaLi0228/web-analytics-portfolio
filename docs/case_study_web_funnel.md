@@ -1,12 +1,12 @@
-# Case Study: E-commerce Web Funnel Analytics
+# Case Study: E-commerce Clickstream Journey Analytics
 
 ## 1. Business Scenario
 
-An e-commerce team wants to understand how users move from product discovery to purchase. Traffic comes from several channels and devices, but the team needs a reliable view of where users drop off and which product areas deserve attention.
+An e-commerce team wants to understand how users move from product discovery to purchase across a large product catalog. The available data contains product-level user events from a public multi-category store dataset.
 
 The main business question is:
 
-> Which parts of the digital shopping journey should be investigated first to improve conversion and revenue?
+> Which product categories or product groups should be investigated first to improve conversion and revenue?
 
 ## 2. Analytical Objective
 
@@ -15,32 +15,32 @@ The objective is to create a clean, reusable analytics layer that can support da
 The analysis focuses on:
 
 - product view volume
-- add-to-cart behavior
-- checkout behavior
+- cart behavior
+- remove-from-cart behavior
 - purchase conversion
 - revenue
-- channel and device differences
+- category and brand differences
 - product-level conversion patterns
 - tracking data quality
 
 ## 3. Data Model
 
-The project follows a simple medallion-style structure:
+The project follows a medallion-style structure:
 
 ```text
-bronze_web_events_sample
+bronze_ecommerce_events
   -> silver_clean_events
-  -> gold_daily_funnel_kpis
+  -> gold_daily_journey_kpis
   -> gold_product_performance
 ```
 
 ### Bronze
 
-Raw web event data. This layer keeps the original event-level records.
+Raw clickstream data from the public source. This layer keeps the original event-level records.
 
 ### Silver
 
-Cleaned and standardized event data. This layer prepares event dates, event names, product IDs, session IDs, channels, devices, and revenue fields for analysis.
+Cleaned and standardized event data. This layer maps source `event_type` values into normalized event names such as `view_item`, `add_to_cart`, `remove_from_cart`, and `purchase`.
 
 ### Gold
 
@@ -50,19 +50,20 @@ Business-ready KPI tables. These tables are easier to use in Power BI or recurri
 
 | KPI | Definition | Why it matters |
 |---|---|---|
-| Sessions | Distinct sessions by date, channel, and device | Measures traffic volume |
-| Product view sessions | Sessions with at least one `view_item` event | Measures product discovery |
-| Add-to-cart sessions | Sessions with at least one `add_to_cart` event | Measures shopping intent |
-| Checkout sessions | Sessions with at least one `begin_checkout` event | Measures checkout intent |
+| Sessions | Distinct `user_session` values | Measures journey volume |
+| Users | Distinct `user_id` values | Measures customer reach |
+| View sessions | Sessions with at least one `view_item` event | Measures product discovery |
+| Cart sessions | Sessions with at least one `add_to_cart` event | Measures shopping intent |
+| Remove-from-cart sessions | Sessions with at least one `remove_from_cart` event | Signals cart reconsideration or friction |
 | Purchase sessions | Sessions with at least one `purchase` event | Measures conversion |
-| View-to-cart rate | Add-to-cart sessions / product view sessions | Shows product page effectiveness |
-| Cart-to-purchase rate | Purchase sessions / add-to-cart sessions | Shows checkout and purchase friction |
+| View-to-cart rate | Cart sessions / view sessions | Shows product interest quality |
+| Cart-to-purchase rate | Purchase sessions / cart sessions | Shows purchase friction |
 | Session conversion rate | Purchase sessions / total sessions | Overall conversion quality |
-| Revenue | Sum of purchase revenue | Commercial outcome |
+| Revenue | Sum of purchase prices | Commercial outcome |
 
 ## 5. SQL Logic
 
-The main funnel table is built at session level first, then aggregated by date, channel, and device.
+The main journey table is built at session-category level first, then aggregated by date and category.
 
 This prevents overcounting when a user triggers the same event multiple times in one session.
 
@@ -71,22 +72,22 @@ Example logic used in `sql/03_create_gold_funnel_kpis.sql`:
 ```sql
 max(case when event_name = 'view_item' then 1 else 0 end) as viewed_product,
 max(case when event_name = 'add_to_cart' then 1 else 0 end) as added_to_cart,
-max(case when event_name = 'begin_checkout' then 1 else 0 end) as began_checkout,
+max(case when event_name = 'remove_from_cart' then 1 else 0 end) as removed_from_cart,
 max(case when event_name = 'purchase' then 1 else 0 end) as purchased
 ```
 
 ## 6. Data Quality Checks
 
-Before interpreting funnel results, the tracking data should be validated.
+Before interpreting journey results, the tracking data should be validated.
 
 The project includes checks for:
 
-- duplicate event IDs
 - missing session IDs
+- unknown event types
 - missing product IDs on product-related events
-- purchase events without order IDs
-- negative revenue
-- sessions with purchases but no add-to-cart event
+- negative prices
+- duplicate generated event IDs
+- sessions with purchases but no cart event
 
 This matters because a tracking problem can look like a business performance issue if the data is not validated first.
 
@@ -95,38 +96,28 @@ This matters because a tracking problem can look like a business performance iss
 The Power BI design has four pages:
 
 1. Executive Overview
-2. E-commerce Funnel
+2. Customer Journey Funnel
 3. Product Performance
-4. Channel and Device Analysis
+4. Category and Brand Analysis
 
 The dashboard is designed to support both high-level management review and deeper analyst investigation.
 
 ## 8. Example Stakeholder Interpretation
 
-If mobile traffic has high product views but lower cart-to-purchase conversion, the interpretation should not stop at "mobile users are less valuable."
+If a category has high product views but weak cart or purchase conversion, the interpretation should not stop at "users do not like this category."
 
 The next checks would include:
 
-- whether mobile events are tracked correctly
-- whether checkout events are missing on mobile
-- whether payment or delivery steps differ by device
-- whether mobile traffic comes from a lower-intent channel
-- whether product content or loading speed affects mobile users
+- whether product IDs and category labels are complete
+- whether cart or purchase events are tracked consistently
+- whether prices, product content, availability, or delivery expectations explain the drop-off
+- whether the pattern is category-specific or product-specific
+- whether repeat users behave differently from single-session users
 
-This approach separates tracking quality, user experience, and commercial performance.
+This approach separates tracking quality, user behavior, product experience, and commercial performance.
 
 ## 9. Project Explanation
 
-This project demonstrates the analytics workflow behind web and product reporting: define event requirements, clean raw events, validate tracking quality, build gold KPI tables in SQL, and design a Power BI dashboard around stakeholder questions.
+This project demonstrates the analytics workflow behind web and product reporting: understand the event source, clean raw clickstream events, validate tracking quality, build gold KPI tables in SQL, and design a Power BI dashboard around stakeholder questions.
 
 The goal is not just to calculate metrics. The goal is to make sure the metrics are trustworthy and actionable.
-
-## 10. Next Improvements
-
-The next improvements would be:
-
-- connect Matomo or GA event exports
-- add promotion and campaign fields
-- add screenshot evidence from Databricks query results
-- build the Power BI report from the gold tables
-- add automated weekly data quality checks
