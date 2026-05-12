@@ -14,13 +14,13 @@ If you only have two minutes, start here:
 
 | What to review | File | Why it matters |
 |---|---|---|
-| Fast project overview | `docs/recruiter_quick_scan.md` | Summary of role fit and best files to inspect |
-| Web tracking thinking | `docs/matomo_tracking_plan.md` | How I would define, validate, and use Matomo-style events |
-| Business case | `docs/case_study_web_funnel.md` | End-to-end explanation of the funnel analysis case |
-| SQL KPI logic | `sql/03_create_gold_funnel_kpis.sql` | Session-level funnel modeling by channel and device |
-| Data quality | `sql/05_data_quality_checks.sql` | Checks before trusting dashboard results |
-| Dashboard design | `powerbi/dashboard_design.md` | Power BI report structure and DAX examples |
-| Interview summary | `docs/interview_talking_points.md` | How I would explain the project in an interview |
+| Fast project overview | [Recruiter quick scan](docs/recruiter_quick_scan.md) | Summary of role fit and best files to inspect |
+| Web tracking thinking | [Matomo tracking plan](docs/matomo_tracking_plan.md) | How I would define, validate, and use Matomo-style events |
+| Business case | [Web funnel case study](docs/case_study_web_funnel.md) | End-to-end explanation of the funnel analysis case |
+| SQL KPI logic | [Funnel KPI SQL](sql/03_create_gold_funnel_kpis.sql) | Session-level funnel modeling by channel and device |
+| Data quality | [Data quality SQL](sql/05_data_quality_checks.sql) | Checks before trusting dashboard results |
+| Dashboard design | [Power BI dashboard design](powerbi/dashboard_design.md) | Power BI report structure and DAX examples |
+| Interview summary | [Interview talking points](docs/interview_talking_points.md) | How I would explain the project in an interview |
 
 ## Why This Project
 
