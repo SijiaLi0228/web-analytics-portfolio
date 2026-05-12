@@ -46,10 +46,10 @@ Recommended filters:
 - device
 - country
 
-Stakeholder talking point:
+Stakeholder use case:
 
 ```text
-I would use this page to start the meeting with the overall performance picture, then move into funnel or product pages only when a KPI needs explanation.
+Use this page to start with the overall performance picture, then move into funnel or product pages when a KPI needs explanation.
 ```
 
 ## Page 2: E-commerce Funnel
@@ -71,7 +71,7 @@ Recommended visuals:
 - Bar chart: cart-to-purchase rate by device
 - Table: daily funnel KPIs
 
-Key insight template:
+Example interpretation:
 
 ```text
 Mobile traffic has lower cart-to-purchase conversion than desktop. The next step is to inspect mobile checkout UX, payment flow, and whether mobile checkout events are tracked correctly.
@@ -92,7 +92,7 @@ Recommended visuals:
 - Scatter plot: view sessions vs purchase sessions
 - Conditional formatting: low conversion / high views
 
-Key insight template:
+Example interpretation:
 
 ```text
 Some products receive high views but low purchase conversion, which may indicate pricing, product content, availability, or checkout friction.
@@ -113,7 +113,7 @@ Recommended visuals:
 - Bar chart: conversion rate by device
 - Map or bar chart: sessions by country
 
-Key insight template:
+Example interpretation:
 
 ```text
 Paid mobile traffic drives sessions but has weaker conversion, suggesting a need to review campaign targeting and mobile landing page relevance.
@@ -158,10 +158,10 @@ After building the report, add screenshots to a `docs/dashboard_screenshots/` fo
 - Databricks query result for `gold_daily_funnel_kpis`
 - Databricks query result for `gold_product_performance`
 
-## Interview Talking Point
+## Design Rationale
 
-A concise way to explain the dashboard design:
+A concise rationale for the dashboard structure:
 
 ```text
-I would not design the dashboard as a collection of charts. I would structure it around stakeholder questions: first overall performance, then funnel drop-off, then product-level performance, then channel and device differences. This makes the dashboard easier to use in recurring business meetings.
+The dashboard is structured around stakeholder questions rather than chart types: first overall performance, then funnel drop-off, then product-level performance, then channel and device differences. This makes the dashboard easier to use in recurring business reviews.
 ```
