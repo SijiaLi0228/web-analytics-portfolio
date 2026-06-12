@@ -14,6 +14,8 @@ The purpose is to practice a realistic analytics workflow: turning product-level
 
 The focus is not only writing SQL. It is also about understanding the source data, defining reliable events, checking data quality, creating clear KPI definitions, and making outputs usable for business teams.
 
+This is a public portfolio project, so it uses public data that can be shared openly. My real e-commerce work involves private product, order, customer, web, and operational data, so this repository is designed to demonstrate the method without exposing confidential business information.
+
 ## 3. Data Pipeline
 
 ```text
@@ -98,3 +100,11 @@ If this were extended further, the next additions would be:
 - export real Databricks query screenshots
 - build the Power BI report from the gold tables
 - automate weekly data quality checks
+
+## 11. Interview Narrative
+
+If I had one minute to explain the project, I would say:
+
+```text
+I wanted to show the full path from raw digital behavior data to a business-ready analytics output. I selected a public e-commerce clickstream dataset because it has realistic web events: views, cart actions, removals, and purchases. I designed the pipeline as bronze, silver, and gold layers, cleaned and standardized the events, then built session-level KPI tables so repeated clicks would not inflate the funnel. Before interpreting performance, I added data quality checks because tracking issues can look like business issues. The final output is a Power BI dashboard design and case study that helps a stakeholder decide which category, product group, or tracking issue to investigate first.
+```
