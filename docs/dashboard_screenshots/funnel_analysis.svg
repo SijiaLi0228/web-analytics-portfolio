@@ -1,27 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="960" height="500" viewBox="0 0 960 500" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="640" viewBox="0 0 1080 640" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
   <rect width="100%" height="100%" fill="#f7f8fb"/>
   <style>
-    .title{font:700 28px Arial, sans-serif;fill:#1f2937}
+    .title{font:700 30px Arial, sans-serif;fill:#1f2937}
     .subtitle{font:400 14px Arial, sans-serif;fill:#5f6b7a}
     .h{font:700 16px Arial, sans-serif;fill:#1f2937}
     .label{font:400 13px Arial, sans-serif;fill:#5f6b7a}
-    .value{font:700 24px Arial, sans-serif;fill:#1f2937}
+    .value{font:700 25px Arial, sans-serif;fill:#1f2937}
     .small{font:400 12px Arial, sans-serif;fill:#5f6b7a}
+    .xs{font:400 10px Arial, sans-serif;fill:#5f6b7a}
+    .white{fill:#ffffff}
+    .pill{font:700 11px Arial, sans-serif;fill:#ffffff}
   </style>
 
   <text x="40" y="50" class="title">Customer Journey Funnel</text>
-  <text x="40" y="76" class="subtitle">Session-level modeling for large-scale product behavior events</text>
-  <text x="50" y="148" class="label">View sessions</text>
-  <rect x="270" y="125" width="420" height="34" rx="5" fill="#1f5f8b"/>
-  <text x="705" y="148" class="small">100%</text>
-  <text x="50" y="218" class="label">Cart sessions</text>
-  <rect x="270" y="195" width="75.6" height="34" rx="5" fill="#2f9e8f"/>
-  <text x="360.6" y="218" class="small">18%</text>
-  <text x="50" y="288" class="label">Remove-from-cart sessions</text>
-  <rect x="270" y="265" width="29.4" height="34" rx="5" fill="#e6a23c"/>
-  <text x="314.4" y="288" class="small">7%</text>
-  <text x="50" y="358" class="label">Purchase sessions</text>
-  <rect x="270" y="335" width="21" height="34" rx="5" fill="#c95f4f"/>
-  <text x="306" y="358" class="small">5%</text>
-  <text x="40" y="430" class="small">Example use: high product views with weak cart or purchase movement should trigger category, pricing, availability, and tracking checks.</text>
+  <text x="40" y="76" class="subtitle">Session-level modeling with QA caveats and decision notes</text>
+  <rect x="40" y="115" width="690" height="330" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="70" y="184" class="label">View sessions</text>
+  <rect x="275" y="160" width="459.99999999999994" height="34" rx="6" fill="#1f5f8b"/>
+  <text x="750.0" y="183" class="small">100%</text>
+  <text x="70" y="246" class="label">Cart sessions</text>
+  <rect x="275" y="222" width="101.19999999999999" height="34" rx="6" fill="#2f9e8f"/>
+  <text x="391.2" y="245" class="small">22%</text>
+  <text x="70" y="308" class="label">Remove-from-cart sessions</text>
+  <rect x="275" y="284" width="41.4" height="34" rx="6" fill="#e6a23c"/>
+  <text x="331.4" y="307" class="small">9%</text>
+  <text x="70" y="370" class="label">Purchase sessions</text>
+  <rect x="275" y="346" width="27.599999999999998" height="34" rx="6" fill="#c95f4f"/>
+  <text x="317.6" y="369" class="small">6%</text>
+  <rect x="760" y="115" width="280" height="330" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="785" y="150" class="h">Diagnostic follow-up</text>
+  <circle cx="794" cy="190" r="5" fill="#1f5f8b"/><text x="812" y="195" class="small">Validate event sequence</text>
+  <circle cx="794" cy="228" r="5" fill="#2f9e8f"/><text x="812" y="233" class="small">Check product content</text>
+  <circle cx="794" cy="266" r="5" fill="#e6a23c"/><text x="812" y="271" class="small">Inspect price/availability</text>
+  <circle cx="794" cy="304" r="5" fill="#c95f4f"/><text x="812" y="309" class="small">Review checkout friction</text>
+  <text x="785" y="366" class="small">Interpretation is staged:</text>
+  <text x="785" y="388" class="small">tracking first, then product,</text>
+  <text x="785" y="410" class="small">then commercial action.</text>
+  <rect x="40" y="485" width="1000" height="84" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="70" y="520" class="h">Stakeholder note</text>
+  <text x="70" y="548" class="small">High views with weak cart or purchase movement should trigger category, pricing, availability, UX, and tracking checks before recommending action.</text>
 </svg>

@@ -1,68 +1,187 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1030" viewBox="0 0 900 1030" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="940" viewBox="0 0 1280 940" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
   <rect width="100%" height="100%" fill="#f7f8fb"/>
   <style>
-    .title{font:700 28px Arial, sans-serif;fill:#1f2937}
+    .title{font:700 30px Arial, sans-serif;fill:#1f2937}
     .subtitle{font:400 14px Arial, sans-serif;fill:#5f6b7a}
     .h{font:700 16px Arial, sans-serif;fill:#1f2937}
     .label{font:400 13px Arial, sans-serif;fill:#5f6b7a}
-    .value{font:700 24px Arial, sans-serif;fill:#1f2937}
+    .value{font:700 25px Arial, sans-serif;fill:#1f2937}
     .small{font:400 12px Arial, sans-serif;fill:#5f6b7a}
+    .xs{font:400 10px Arial, sans-serif;fill:#5f6b7a}
+    .white{fill:#ffffff}
+    .pill{font:700 11px Arial, sans-serif;fill:#ffffff}
   </style>
 
-  <text x="40" y="50" class="title">Large-Scale E-commerce Clickstream Dashboard</text>
-  <text x="40" y="76" class="subtitle">Public dataset workflow: raw events -&gt; silver validated events -&gt; gold KPI tables -&gt; Power BI insights</text>
-  <rect x="40" y="105" width="250" height="96" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="58" y="133" class="label">Dataset Scale</text>
-  <text x="58" y="166" class="value">285M</text>
-  <text x="58" y="189" class="small">public clickstream events</text>
-  <rect x="315" y="105" width="250" height="96" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="333" y="133" class="label">Time Range</text>
-  <text x="333" y="166" class="value">7 months</text>
-  <text x="333" y="189" class="small">Oct 2019 - Apr 2020</text>
-  <rect x="590" y="105" width="250" height="96" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="608" y="133" class="label">Granularity</text>
-  <text x="608" y="166" class="value">event-level</text>
-  <text x="608" y="189" class="small">user + session + product</text>
-  <rect x="40" y="223" width="250" height="96" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="58" y="251" class="label">Journey Events</text>
-  <text x="58" y="284" class="value">4 types</text>
-  <text x="58" y="307" class="small">view, cart, remove, purchase</text>
-  <rect x="315" y="223" width="250" height="96" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="333" y="251" class="label">Gold Tables</text>
-  <text x="333" y="284" class="value">2 core</text>
-  <text x="333" y="307" class="small">journey + product KPIs</text>
-  <rect x="40" y="345" width="820" height="270" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="64" y="380" class="h">Customer Journey Funnel</text>
-  <text x="64" y="402" class="small">Illustrative rates after SQL aggregation by session</text>
-  <text x="64" y="455" class="label">Product view</text>
-  <rect x="245" y="438" width="420" height="24" rx="4" fill="#1f5f8b"/>
-  <text x="680" y="455" class="small">100%</text>
-  <text x="64" y="500" class="label">Add to cart</text>
-  <rect x="245" y="483" width="75.6" height="24" rx="4" fill="#2f9e8f"/>
-  <text x="335.6" y="500" class="small">18%</text>
-  <text x="64" y="545" class="label">Remove cart</text>
-  <rect x="245" y="528" width="29.4" height="24" rx="4" fill="#e6a23c"/>
-  <text x="289.4" y="545" class="small">7%</text>
-  <text x="64" y="590" class="label">Purchase</text>
-  <rect x="245" y="573" width="21" height="24" rx="4" fill="#c95f4f"/>
-  <text x="281" y="590" class="small">5%</text>
-  <rect x="40" y="655" width="820" height="295" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="64" y="690" class="h">Revenue Index by Category</text>
-  <text x="64" y="712" class="small">Designed for category-level stakeholder review</text>
-  <rect x="120" y="770" width="58" height="135" rx="5" fill="#1f5f8b"/>
-  <text x="149" y="930" text-anchor="middle" class="small">electronics</text>
-  <text x="149" y="762" text-anchor="middle" class="small">100</text>
-  <rect x="265" y="805.1" width="58" height="99.9" rx="5" fill="#1f5f8b"/>
-  <text x="294" y="930" text-anchor="middle" class="small">appliances</text>
-  <text x="294" y="797.1" text-anchor="middle" class="small">74</text>
-  <rect x="410" y="819.95" width="58" height="85.05" rx="5" fill="#1f5f8b"/>
-  <text x="439" y="930" text-anchor="middle" class="small">computers</text>
-  <text x="439" y="811.95" text-anchor="middle" class="small">63</text>
-  <rect x="555" y="848.3" width="58" height="56.7" rx="5" fill="#1f5f8b"/>
-  <text x="584" y="930" text-anchor="middle" class="small">accessories</text>
-  <text x="584" y="840.3" text-anchor="middle" class="small">42</text>
-  <rect x="700" y="868.55" width="58" height="36.45" rx="5" fill="#1f5f8b"/>
-  <text x="729" y="930" text-anchor="middle" class="small">unknown</text>
-  <text x="729" y="860.55" text-anchor="middle" class="small">27</text>
-  <text x="40" y="995" class="small">Interpretation: separate product discovery, cart intent, purchase conversion, and data quality before making recommendations.</text>
+  <rect x="0" y="0" width="1280" height="86" fill="#172b36"/>
+  <text x="38" y="42" class="title white">E-commerce Clickstream Analytics Workbench</text>
+  <text x="38" y="66" class="subtitle white" opacity="0.78">Journey KPIs, retention, product friction, weekly monitoring, and data quality readiness</text>
+  <rect x="1040" y="26" width="92" height="30" rx="15" fill="#1f5f8b"/>
+  <text x="1086" y="46" text-anchor="middle" class="pill">GOLD LAYER</text>
+  <rect x="1144" y="26" width="96" height="30" rx="15" fill="#2f9e8f"/>
+  <text x="1192" y="46" text-anchor="middle" class="pill">POWER BI</text>
+  <rect x="32" y="116" width="180" height="762" rx="12" fill="#ffffff" stroke="#d9dee7"/>
+  <text x="56" y="152" class="h">Report filters</text>
+  <text x="56" y="186" class="label">Date range</text>
+  <rect x="56" y="198" width="116" height="28" rx="7" fill="#edf5fa" stroke="#d9dee7"/>
+  <text x="68" y="217" class="small">Oct 2019 - Apr 2020</text>
+  <text x="56" y="260" class="label">Category</text>
+  <text x="72" y="292" class="small">electronics</text>
+  <text x="72" y="322" class="small">appliances</text>
+  <text x="72" y="352" class="small">computers</text>
+  <text x="56" y="410" class="label">Monitoring flags</text>
+  <circle cx="64" cy="442" r="5" fill="#c95f4f"/><text x="78" y="446" class="small">conversion drop</text>
+  <circle cx="64" cy="472" r="5" fill="#e6a23c"/><text x="78" y="476" class="small">revenue drop</text>
+  <circle cx="64" cy="502" r="5" fill="#2f9e8f"/><text x="78" y="506" class="small">positive movement</text>
+  <text x="56" y="575" class="label">Data contract</text>
+  <text x="56" y="603" class="small">Required: session, user,</text>
+  <text x="56" y="621" class="small">event, product, price.</text>
+  <text x="56" y="663" class="label">Interpretation rule</text>
+  <text x="56" y="691" class="small">Do not explain a funnel</text>
+  <text x="56" y="709" class="small">drop before QA checks.</text>
+  <rect x="240" y="116" width="300" height="82" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="258" y="143" class="label">Events</text>
+  <text x="258" y="174" class="value">285M</text>
+  <text x="368" y="174" class="small">public clickstream</text>
+  <rect x="570" y="116" width="300" height="82" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="588" y="143" class="label">Sessions</text>
+  <text x="588" y="174" class="value">42.6M</text>
+  <text x="698" y="174" class="small">modeled from user_session</text>
+  <rect x="900" y="116" width="300" height="82" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="918" y="143" class="label">Purchase CVR</text>
+  <text x="918" y="174" class="value">5.1%</text>
+  <text x="1028" y="174" class="small">session-level KPI</text>
+  <rect x="240" y="220" width="300" height="82" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="258" y="247" class="label">Revenue Index</text>
+  <text x="258" y="278" class="value">100</text>
+  <text x="368" y="278" class="small">normalized for demo</text>
+  <rect x="570" y="220" width="300" height="82" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="588" y="247" class="label">QA Readiness</text>
+  <text x="588" y="278" class="value">Review</text>
+  <text x="698" y="278" class="small">2 high checks</text>
+  <rect x="900" y="220" width="300" height="82" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="918" y="247" class="label">Advanced Tables</text>
+  <text x="918" y="278" class="value">4</text>
+  <text x="1028" y="278" class="small">cohort + scoring + monitoring</text>
+  <rect x="240" y="342" width="500" height="244" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="264" y="376" class="h">Weekly conversion monitor</text>
+  <text x="264" y="398" class="small">Current conversion vs recent movement by week</text>
+  <line x1="278" y1="540" x2="704" y2="540" stroke="#d9dee7"/>
+  <line x1="278" y1="430" x2="278" y2="540" stroke="#d9dee7"/>
+  <circle cx="290" cy="476.0" r="4" fill="#1f5f8b"/>
+  <circle cx="325" cy="468.0" r="4" fill="#1f5f8b"/>
+  <circle cx="360" cy="470.0" r="4" fill="#1f5f8b"/>
+  <circle cx="395" cy="464.0" r="4" fill="#1f5f8b"/>
+  <circle cx="430" cy="478.0" r="4" fill="#1f5f8b"/>
+  <circle cx="465" cy="454.0" r="4" fill="#1f5f8b"/>
+  <circle cx="500" cy="460.0" r="4" fill="#1f5f8b"/>
+  <circle cx="535" cy="448.0" r="4" fill="#1f5f8b"/>
+  <circle cx="570" cy="456.0" r="4" fill="#1f5f8b"/>
+  <circle cx="605" cy="444.0" r="4" fill="#1f5f8b"/>
+  <circle cx="640" cy="452.0" r="4" fill="#1f5f8b"/>
+  <circle cx="675" cy="438.0" r="4" fill="#1f5f8b"/>
+  <polyline points="290,476.0 325,468.0 360,470.0 395,464.0 430,478.0 465,454.0 500,460.0 535,448.0 570,456.0 605,444.0 640,452.0 675,438.0" fill="none" stroke="#1f5f8b" stroke-width="3"/>
+  <rect x="585" y="426" width="132" height="42" rx="8" fill="#f8e6e2" stroke="#c95f4f"/>
+  <text x="600" y="451" class="small">Drop flag: -2.1 z</text>
+  <rect x="770" y="342" width="430" height="244" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="794" y="376" class="h">Session-level funnel</text>
+  <text x="794" y="398" class="small">Built from flags, not raw click counts</text>
+  <text x="794" y="443" class="small">View</text>
+  <rect x="876" y="426" width="260.0" height="22" rx="5" fill="#1f5f8b"/>
+  <text x="1150.0" y="442" class="xs">100%</text>
+  <text x="794" y="478" class="small">Cart</text>
+  <rect x="876" y="461" width="57.2" height="22" rx="5" fill="#2f9e8f"/>
+  <text x="947.2" y="477" class="xs">22%</text>
+  <text x="794" y="513" class="small">Remove</text>
+  <rect x="876" y="496" width="23.400000000000002" height="22" rx="5" fill="#e6a23c"/>
+  <text x="913.4" y="512" class="xs">9%</text>
+  <text x="794" y="548" class="small">Purchase</text>
+  <rect x="876" y="531" width="15.600000000000001" height="22" rx="5" fill="#c95f4f"/>
+  <text x="905.6" y="547" class="xs">6%</text>
+  <rect x="240" y="616" width="300" height="230" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="264" y="650" class="h">Cohort retention heatmap</text>
+  <text x="264" y="672" class="small">First observed activity month x cohort age</text>
+  <rect x="570" y="616" width="300" height="230" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="594" y="650" class="h">Product friction scatter</text>
+  <text x="594" y="672" class="small">Attention vs conversion risk</text>
+  <rect x="900" y="616" width="300" height="230" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="924" y="650" class="h">Tracking quality scorecard</text>
+  <text x="924" y="672" class="small">Metric readiness before publication</text>
+  <text x="264" y="714" class="xs">cohort 1</text>
+  <rect x="330" y="696" width="24" height="24" rx="4" fill="#1f5f8b"/>
+  <text x="342" y="712" text-anchor="middle" class="xs white">100</text>
+  <rect x="360" y="696" width="24" height="24" rx="4" fill="#7cc8ad"/>
+  <text x="372" y="712" text-anchor="middle" class="xs white">36</text>
+  <rect x="390" y="696" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="402" y="712" text-anchor="middle" class="xs white">24</text>
+  <rect x="420" y="696" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="432" y="712" text-anchor="middle" class="xs white">18</text>
+  <rect x="450" y="696" width="24" height="24" rx="4" fill="#e8f3ef"/>
+  <text x="462" y="712" text-anchor="middle" class="xs white">14</text>
+  <rect x="480" y="696" width="24" height="24" rx="4" fill="#e8f3ef"/>
+  <text x="492" y="712" text-anchor="middle" class="xs white">10</text>
+  <text x="264" y="744" class="xs">cohort 2</text>
+  <rect x="330" y="726" width="24" height="24" rx="4" fill="#1f5f8b"/>
+  <text x="342" y="742" text-anchor="middle" class="xs white">100</text>
+  <rect x="360" y="726" width="24" height="24" rx="4" fill="#7cc8ad"/>
+  <text x="372" y="742" text-anchor="middle" class="xs white">34</text>
+  <rect x="390" y="726" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="402" y="742" text-anchor="middle" class="xs white">22</text>
+  <rect x="420" y="726" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="432" y="742" text-anchor="middle" class="xs white">17</text>
+  <rect x="450" y="726" width="24" height="24" rx="4" fill="#e8f3ef"/>
+  <text x="462" y="742" text-anchor="middle" class="xs white">13</text>
+  <rect x="480" y="726" width="24" height="24" rx="4" fill="#e8f3ef"/>
+  <text x="492" y="742" text-anchor="middle" class="xs white">9</text>
+  <text x="264" y="774" class="xs">cohort 3</text>
+  <rect x="330" y="756" width="24" height="24" rx="4" fill="#1f5f8b"/>
+  <text x="342" y="772" text-anchor="middle" class="xs white">100</text>
+  <rect x="360" y="756" width="24" height="24" rx="4" fill="#7cc8ad"/>
+  <text x="372" y="772" text-anchor="middle" class="xs white">39</text>
+  <rect x="390" y="756" width="24" height="24" rx="4" fill="#7cc8ad"/>
+  <text x="402" y="772" text-anchor="middle" class="xs white">27</text>
+  <rect x="420" y="756" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="432" y="772" text-anchor="middle" class="xs white">19</text>
+  <rect x="450" y="756" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="462" y="772" text-anchor="middle" class="xs white">15</text>
+  <rect x="480" y="756" width="24" height="24" rx="4" fill="#e8f3ef"/>
+  <text x="492" y="772" text-anchor="middle" class="xs white">11</text>
+  <text x="264" y="804" class="xs">cohort 4</text>
+  <rect x="330" y="786" width="24" height="24" rx="4" fill="#1f5f8b"/>
+  <text x="342" y="802" text-anchor="middle" class="xs white">100</text>
+  <rect x="360" y="786" width="24" height="24" rx="4" fill="#7cc8ad"/>
+  <text x="372" y="802" text-anchor="middle" class="xs white">31</text>
+  <rect x="390" y="786" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="402" y="802" text-anchor="middle" class="xs white">20</text>
+  <rect x="420" y="786" width="24" height="24" rx="4" fill="#bfe4d3"/>
+  <text x="432" y="802" text-anchor="middle" class="xs white">16</text>
+  <rect x="450" y="786" width="24" height="24" rx="4" fill="#e8f3ef"/>
+  <text x="462" y="802" text-anchor="middle" class="xs white">12</text>
+  <rect x="480" y="786" width="24" height="24" rx="4" fill="#e8f3ef"/>
+  <text x="492" y="802" text-anchor="middle" class="xs white">8</text>
+  <line x1="612" y1="806" x2="828" y2="806" stroke="#d9dee7"/>
+  <line x1="612" y1="694" x2="612" y2="806" stroke="#d9dee7"/>
+  <text x="620" y="824" class="xs">view sessions</text>
+  <text x="594" y="706" class="xs">CVR</text>
+  <circle cx="644" cy="831" r="8" fill="#c95f4f" opacity="0.82"/>
+  <circle cx="686" cy="784" r="11" fill="#e6a23c" opacity="0.82"/>
+  <circle cx="726" cy="748" r="15" fill="#1f5f8b" opacity="0.82"/>
+  <circle cx="770" cy="809" r="9" fill="#c95f4f" opacity="0.82"/>
+  <circle cx="812" cy="731" r="13" fill="#2f9e8f" opacity="0.82"/>
+  <circle cx="860" cy="776" r="10" fill="#e6a23c" opacity="0.82"/>
+  <circle cx="904" cy="708" r="16" fill="#2f9e8f" opacity="0.82"/>
+  <circle cx="950" cy="798" r="12" fill="#c95f4f" opacity="0.82"/>
+  <circle cx="932" cy="700" r="5" fill="#c95f4f"/>
+  <text x="946" y="704" class="xs">missing session</text>
+  <text x="1042" y="704" class="xs">publish caveat</text>
+  <circle cx="932" cy="731" r="5" fill="#e6a23c"/>
+  <text x="946" y="735" class="xs">unknown event</text>
+  <text x="1042" y="735" class="xs">validate</text>
+  <circle cx="932" cy="762" r="5" fill="#1f5f8b"/>
+  <text x="946" y="766" class="xs">negative price</text>
+  <text x="1042" y="766" class="xs">review rows</text>
+  <circle cx="932" cy="793" r="5" fill="#1f5f8b"/>
+  <text x="946" y="797" class="xs">purchase no cart</text>
+  <text x="1042" y="797" class="xs">sequence check</text>
+  <rect x="240" y="878" width="960" height="34" rx="10" fill="#ffffff" stroke="#d9dee7"/>
+  <text x="264" y="900" class="small">Analyst interpretation: use advanced tables to separate journey friction, product issues, repeat behavior, KPI movement, and tracking readiness before recommending action.</text>
 </svg>

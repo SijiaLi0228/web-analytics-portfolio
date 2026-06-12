@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs" / "dashboard_screenshots"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -14,162 +15,294 @@ BG = "#f7f8fb"
 TEXT = "#1f2937"
 
 
-def header(width, height):
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
+def svg_header(width, height):
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
   <rect width="100%" height="100%" fill="{BG}"/>
   <style>
-    .title{{font:700 28px Arial, sans-serif;fill:{TEXT}}}
+    .title{{font:700 30px Arial, sans-serif;fill:{TEXT}}}
     .subtitle{{font:400 14px Arial, sans-serif;fill:{MUTED}}}
     .h{{font:700 16px Arial, sans-serif;fill:{TEXT}}}
     .label{{font:400 13px Arial, sans-serif;fill:{MUTED}}}
-    .value{{font:700 24px Arial, sans-serif;fill:{TEXT}}}
+    .value{{font:700 25px Arial, sans-serif;fill:{TEXT}}}
     .small{{font:400 12px Arial, sans-serif;fill:{MUTED}}}
+    .xs{{font:400 10px Arial, sans-serif;fill:{MUTED}}}
+    .white{{fill:#ffffff}}
+    .pill{{font:700 11px Arial, sans-serif;fill:#ffffff}}
   </style>
-'''
+"""
 
 
-def write(name, lines):
-    (OUT / name).write_text("\n".join(lines) + "\n")
+def write(path, content):
+    (OUT / path).write_text(content)
 
 
-def dashboard_overview():
+def save_dashboard_overview_svg():
     cards = [
-        ("Dataset Scale", "285M", "public clickstream events"),
-        ("Time Range", "7 months", "Oct 2019 - Apr 2020"),
-        ("Granularity", "event-level", "user + session + product"),
-        ("Journey Events", "4 types", "view, cart, remove, purchase"),
-        ("Gold Tables", "2 core", "journey + product KPIs"),
+        ("Events", "285M", "public clickstream"),
+        ("Sessions", "42.6M", "modeled from user_session"),
+        ("Purchase CVR", "5.1%", "session-level KPI"),
+        ("Revenue Index", "100", "normalized for demo"),
+        ("QA Readiness", "Review", "2 high checks"),
+        ("Advanced Tables", "4", "cohort + scoring + monitoring"),
     ]
-    lines = [header(900, 1030)]
+    weekly_points = [(0, 38), (1, 42), (2, 41), (3, 44), (4, 37), (5, 49), (6, 46), (7, 52), (8, 48), (9, 54), (10, 50), (11, 57)]
+    heatmap = [
+        [100, 36, 24, 18, 14, 10],
+        [100, 34, 22, 17, 13, 9],
+        [100, 39, 27, 19, 15, 11],
+        [100, 31, 20, 16, 12, 8],
+    ]
+    products = [
+        (50, 165, 8, ACCENT_4),
+        (92, 118, 11, ACCENT_3),
+        (132, 82, 15, ACCENT),
+        (176, 143, 9, ACCENT_4),
+        (218, 65, 13, ACCENT_2),
+        (266, 110, 10, ACCENT_3),
+        (310, 42, 16, ACCENT_2),
+        (356, 132, 12, ACCENT_4),
+    ]
+    lines = [svg_header(1280, 940)]
     lines += [
-        '  <text x="40" y="50" class="title">Large-Scale E-commerce Clickstream Dashboard</text>',
-        '  <text x="40" y="76" class="subtitle">Public dataset workflow: raw events -&gt; silver validated events -&gt; gold KPI tables -&gt; Power BI insights</text>',
+        f'  <rect x="0" y="0" width="1280" height="86" fill="#172b36"/>',
+        '  <text x="38" y="42" class="title white">E-commerce Clickstream Analytics Workbench</text>',
+        '  <text x="38" y="66" class="subtitle white" opacity="0.78">Journey KPIs, retention, product friction, weekly monitoring, and data quality readiness</text>',
+        f'  <rect x="1040" y="26" width="92" height="30" rx="15" fill="{ACCENT}"/>',
+        '  <text x="1086" y="46" text-anchor="middle" class="pill">GOLD LAYER</text>',
+        f'  <rect x="1144" y="26" width="96" height="30" rx="15" fill="{ACCENT_2}"/>',
+        '  <text x="1192" y="46" text-anchor="middle" class="pill">POWER BI</text>',
+        f'  <rect x="32" y="116" width="180" height="762" rx="12" fill="#ffffff" stroke="{LINE}"/>',
+        '  <text x="56" y="152" class="h">Report filters</text>',
+        '  <text x="56" y="186" class="label">Date range</text>',
+        f'  <rect x="56" y="198" width="116" height="28" rx="7" fill="#edf5fa" stroke="{LINE}"/>',
+        '  <text x="68" y="217" class="small">Oct 2019 - Apr 2020</text>',
+        '  <text x="56" y="260" class="label">Category</text>',
+        '  <text x="72" y="292" class="small">electronics</text>',
+        '  <text x="72" y="322" class="small">appliances</text>',
+        '  <text x="72" y="352" class="small">computers</text>',
+        '  <text x="56" y="410" class="label">Monitoring flags</text>',
+        f'  <circle cx="64" cy="442" r="5" fill="{ACCENT_4}"/><text x="78" y="446" class="small">conversion drop</text>',
+        f'  <circle cx="64" cy="472" r="5" fill="{ACCENT_3}"/><text x="78" y="476" class="small">revenue drop</text>',
+        f'  <circle cx="64" cy="502" r="5" fill="{ACCENT_2}"/><text x="78" y="506" class="small">positive movement</text>',
+        '  <text x="56" y="575" class="label">Data contract</text>',
+        '  <text x="56" y="603" class="small">Required: session, user,</text>',
+        '  <text x="56" y="621" class="small">event, product, price.</text>',
+        '  <text x="56" y="663" class="label">Interpretation rule</text>',
+        '  <text x="56" y="691" class="small">Do not explain a funnel</text>',
+        '  <text x="56" y="709" class="small">drop before QA checks.</text>',
     ]
     for i, (title, value, sub) in enumerate(cards):
-        x = 40 + (i % 3) * 275
-        y = 105 + (i // 3) * 118
+        x = 240 + (i % 3) * 330
+        y = 116 + (i // 3) * 104
         lines += [
-            f'  <rect x="{x}" y="{y}" width="250" height="96" rx="10" fill="#fff" stroke="{LINE}"/>',
-            f'  <text x="{x + 18}" y="{y + 28}" class="label">{title}</text>',
-            f'  <text x="{x + 18}" y="{y + 61}" class="value">{value}</text>',
-            f'  <text x="{x + 18}" y="{y + 84}" class="small">{sub}</text>',
+            f'  <rect x="{x}" y="{y}" width="300" height="82" rx="12" fill="#fff" stroke="{LINE}"/>',
+            f'  <text x="{x + 18}" y="{y + 27}" class="label">{title}</text>',
+            f'  <text x="{x + 18}" y="{y + 58}" class="value">{value}</text>',
+            f'  <text x="{x + 128}" y="{y + 58}" class="small">{sub}</text>',
         ]
 
     lines += [
-        f'  <rect x="40" y="345" width="820" height="270" rx="10" fill="#fff" stroke="{LINE}"/>',
-        '  <text x="64" y="380" class="h">Customer Journey Funnel</text>',
-        '  <text x="64" y="402" class="small">Illustrative rates after SQL aggregation by session</text>',
+        f'  <rect x="240" y="342" width="500" height="244" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="264" y="376" class="h">Weekly conversion monitor</text>',
+        '  <text x="264" y="398" class="small">Current conversion vs recent movement by week</text>',
+        f'  <line x1="278" y1="540" x2="704" y2="540" stroke="{LINE}"/>',
+        f'  <line x1="278" y1="430" x2="278" y2="540" stroke="{LINE}"/>',
     ]
-    for label, pct, color, y in [
-        ("Product view", 100, ACCENT, 438),
-        ("Add to cart", 18, ACCENT_2, 483),
-        ("Remove cart", 7, ACCENT_3, 528),
-        ("Purchase", 5, ACCENT_4, 573),
-    ]:
-        width = pct * 4.2
+    point_path = []
+    for idx, (_, value) in enumerate(weekly_points):
+        x = 290 + idx * 35
+        y = 552 - value * 2.0
+        point_path.append(f"{x},{y}")
         lines += [
-            f'  <text x="64" y="{y + 17}" class="label">{label}</text>',
-            f'  <rect x="245" y="{y}" width="{width:g}" height="24" rx="4" fill="{color}"/>',
-            f'  <text x="{260 + width:g}" y="{y + 17}" class="small">{pct}%</text>',
+            f'  <circle cx="{x}" cy="{y}" r="4" fill="{ACCENT}"/>',
         ]
-
+    lines.append(f'  <polyline points="{" ".join(point_path)}" fill="none" stroke="{ACCENT}" stroke-width="3"/>')
     lines += [
-        f'  <rect x="40" y="655" width="820" height="295" rx="10" fill="#fff" stroke="{LINE}"/>',
-        '  <text x="64" y="690" class="h">Revenue Index by Category</text>',
-        '  <text x="64" y="712" class="small">Designed for category-level stakeholder review</text>',
+        f'  <rect x="585" y="426" width="132" height="42" rx="8" fill="#f8e6e2" stroke="{ACCENT_4}"/>',
+        '  <text x="600" y="451" class="small">Drop flag: -2.1 z</text>',
     ]
-    for i, (category, value) in enumerate([("electronics", 100), ("appliances", 74), ("computers", 63), ("accessories", 42), ("unknown", 27)]):
-        x = 120 + i * 145
-        height = value * 1.35
-        y = 905 - height
+    funnel = [("View", 100, ACCENT), ("Cart", 22, ACCENT_2), ("Remove", 9, ACCENT_3), ("Purchase", 6, ACCENT_4)]
+    lines += [
+        f'  <rect x="770" y="342" width="430" height="244" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="794" y="376" class="h">Session-level funnel</text>',
+        '  <text x="794" y="398" class="small">Built from flags, not raw click counts</text>',
+    ]
+    for idx, (label, pct, color) in enumerate(funnel):
+        y = 426 + idx * 35
+        width = pct * 2.6
         lines += [
-            f'  <rect x="{x}" y="{y:g}" width="58" height="{height:g}" rx="5" fill="{ACCENT}"/>',
-            f'  <text x="{x + 29}" y="930" text-anchor="middle" class="small">{category}</text>',
-            f'  <text x="{x + 29}" y="{y - 8:g}" text-anchor="middle" class="small">{value}</text>',
+            f'  <text x="794" y="{y + 17}" class="small">{label}</text>',
+            f'  <rect x="876" y="{y}" width="{width}" height="22" rx="5" fill="{color}"/>',
+            f'  <text x="{890 + width}" y="{y + 16}" class="xs">{pct}%</text>',
         ]
     lines += [
-        '  <text x="40" y="995" class="small">Interpretation: separate product discovery, cart intent, purchase conversion, and data quality before making recommendations.</text>',
-        '</svg>',
+        f'  <rect x="240" y="616" width="300" height="230" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="264" y="650" class="h">Cohort retention heatmap</text>',
+        '  <text x="264" y="672" class="small">First observed activity month x cohort age</text>',
+        f'  <rect x="570" y="616" width="300" height="230" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="594" y="650" class="h">Product friction scatter</text>',
+        '  <text x="594" y="672" class="small">Attention vs conversion risk</text>',
+        f'  <rect x="900" y="616" width="300" height="230" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="924" y="650" class="h">Tracking quality scorecard</text>',
+        '  <text x="924" y="672" class="small">Metric readiness before publication</text>',
     ]
-    write("dashboard_overview.svg", lines)
+    colors = ["#e8f3ef", "#bfe4d3", "#7cc8ad", "#2f9e8f", "#1f5f8b"]
+    for r, row in enumerate(heatmap):
+        lines.append(f'  <text x="264" y="{714 + r * 30}" class="xs">cohort {r + 1}</text>')
+        for c, value in enumerate(row):
+            color = colors[0 if value < 15 else 1 if value < 25 else 2 if value < 40 else 3 if value < 80 else 4]
+            lines += [
+                f'  <rect x="{330 + c * 30}" y="{696 + r * 30}" width="24" height="24" rx="4" fill="{color}"/>',
+                f'  <text x="{342 + c * 30}" y="{712 + r * 30}" text-anchor="middle" class="xs white">{value}</text>',
+            ]
+    lines += [
+        f'  <line x1="612" y1="806" x2="828" y2="806" stroke="{LINE}"/>',
+        f'  <line x1="612" y1="694" x2="612" y2="806" stroke="{LINE}"/>',
+        '  <text x="620" y="824" class="xs">view sessions</text>',
+        '  <text x="594" y="706" class="xs">CVR</text>',
+    ]
+    for x_offset, y_offset, radius, color in products:
+        lines.append(f'  <circle cx="{594 + x_offset}" cy="{666 + y_offset}" r="{radius}" fill="{color}" opacity="0.82"/>')
+    score_rows = [
+        ("missing session", "critical", "publish caveat"),
+        ("unknown event", "high", "validate"),
+        ("negative price", "medium", "review rows"),
+        ("purchase no cart", "medium", "sequence check"),
+    ]
+    for idx, (check, severity, action) in enumerate(score_rows):
+        y = 704 + idx * 31
+        color = ACCENT_4 if severity == "critical" else ACCENT_3 if severity == "high" else ACCENT
+        lines += [
+            f'  <circle cx="932" cy="{y - 4}" r="5" fill="{color}"/>',
+            f'  <text x="946" y="{y}" class="xs">{check}</text>',
+            f'  <text x="1042" y="{y}" class="xs">{action}</text>',
+        ]
+    lines += [
+        f'  <rect x="240" y="878" width="960" height="34" rx="10" fill="#ffffff" stroke="{LINE}"/>',
+        '  <text x="264" y="900" class="small">Analyst interpretation: use advanced tables to separate journey friction, product issues, repeat behavior, KPI movement, and tracking readiness before recommending action.</text>',
+        "</svg>",
+    ]
+    write("dashboard_overview.svg", "\n".join(lines))
 
 
-def analytics_pipeline():
+def save_pipeline_svg():
     labels = [
-        ("Public Dataset", "285M events", "user/session/product"),
-        ("Bronze", "raw clickstream", "source schema"),
-        ("Silver", "event mapping", "QA fields"),
-        ("Gold", "journey KPIs", "product performance"),
-        ("Power BI", "stakeholder views", "DAX measures"),
+        ("Public Dataset", "285M events\\nuser/session/product"),
+        ("Bronze", "raw clickstream\\nsource schema"),
+        ("Silver", "event mapping\\nvalidated fields"),
+        ("Core Gold", "journey KPIs\\nproduct performance"),
+        ("Advanced Gold", "cohort retention\\nfriction monitoring"),
+        ("Power BI", "stakeholder views\\nreadiness notes"),
     ]
-    lines = [header(940, 360)]
+    x_positions = [40, 230, 420, 610, 800, 990]
+    lines = [svg_header(1180, 520)]
     lines += [
         '<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1f5f8b"/></marker></defs>',
-        '  <text x="40" y="50" class="title">Analytics Pipeline</text>',
-        '  <text x="40" y="76" class="subtitle">Large public clickstream data modeled into dashboard-ready KPI tables</text>',
+        '  <text x="40" y="50" class="title">Analytics Pipeline and Decision Layer</text>',
+        '  <text x="40" y="76" class="subtitle">Large public clickstream data modeled into reusable KPI, prioritization, monitoring, and QA outputs</text>',
     ]
-    for i, (title, line1, line2) in enumerate(labels):
-        x = 40 + i * 180
+    for idx, (title, body) in enumerate(labels):
+        x = x_positions[idx]
+        body_lines = body.split("\\n")
         lines += [
-            f'  <rect x="{x}" y="135" width="142" height="110" rx="10" fill="#fff" stroke="{LINE}"/>',
-            f'  <text x="{x + 71}" y="176" text-anchor="middle" class="h">{title}</text>',
-            f'  <text x="{x + 71}" y="205" text-anchor="middle" class="small">{line1}</text>',
-            f'  <text x="{x + 71}" y="224" text-anchor="middle" class="small">{line2}</text>',
+            f'  <rect x="{x}" y="130" width="150" height="118" rx="12" fill="#fff" stroke="{LINE}"/>',
+            f'  <text x="{x + 75}" y="170" text-anchor="middle" class="h">{title}</text>',
+            f'  <text x="{x + 75}" y="202" text-anchor="middle" class="small">{body_lines[0]}</text>',
+            f'  <text x="{x + 75}" y="222" text-anchor="middle" class="small">{body_lines[1]}</text>',
         ]
-        if i < 4:
-            lines.append(f'  <path d="M{x + 148} 190 L{x + 172} 190" stroke="{ACCENT}" stroke-width="3" marker-end="url(#arrow)"/>')
-    lines += ['  <text x="40" y="315" class="small">QA principle: do not interpret journey drop-off until session IDs, event types, product IDs, and purchase prices are validated.</text>', '</svg>']
-    write("analytics_pipeline.svg", lines)
+        if idx < len(labels) - 1:
+            lines.append(f'  <path d="M{x + 156} 190 L{x + 184} 190" stroke="{ACCENT}" stroke-width="3" marker-end="url(#arrow)"/>')
+    lines += [
+        f'  <rect x="40" y="310" width="1100" height="140" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="70" y="346" class="h">Advanced tables added</text>',
+        f'  <rect x="70" y="372" width="225" height="42" rx="8" fill="#edf5fa"/><text x="86" y="398" class="small">gold_user_monthly_retention</text>',
+        f'  <rect x="315" y="372" width="225" height="42" rx="8" fill="#eef4ef"/><text x="331" y="398" class="small">gold_product_friction_scores</text>',
+        f'  <rect x="560" y="372" width="225" height="42" rx="8" fill="#f7ead2"/><text x="576" y="398" class="small">gold_weekly_category_monitoring</text>',
+        f'  <rect x="805" y="372" width="250" height="42" rx="8" fill="#f8e6e2"/><text x="821" y="398" class="small">gold_tracking_quality_scorecard</text>',
+        '  <text x="70" y="444" class="small">QA principle: do not interpret journey drop-off until session IDs, event types, product IDs, and purchase prices are validated.</text>',
+        "</svg>",
+    ]
+    write("analytics_pipeline.svg", "\n".join(lines))
 
 
-def funnel_analysis():
-    lines = [header(960, 500)]
+def save_funnel_svg():
+    funnel = [("View sessions", 100, ACCENT), ("Cart sessions", 22, ACCENT_2), ("Remove-from-cart sessions", 9, ACCENT_3), ("Purchase sessions", 6, ACCENT_4)]
+    lines = [svg_header(1080, 640)]
     lines += [
         '  <text x="40" y="50" class="title">Customer Journey Funnel</text>',
-        '  <text x="40" y="76" class="subtitle">Session-level modeling for large-scale product behavior events</text>',
+        '  <text x="40" y="76" class="subtitle">Session-level modeling with QA caveats and decision notes</text>',
+        f'  <rect x="40" y="115" width="690" height="330" rx="12" fill="#fff" stroke="{LINE}"/>',
     ]
-    for label, pct, color, y in [
-        ("View sessions", 100, ACCENT, 125),
-        ("Cart sessions", 18, ACCENT_2, 195),
-        ("Remove-from-cart sessions", 7, ACCENT_3, 265),
-        ("Purchase sessions", 5, ACCENT_4, 335),
-    ]:
-        width = pct * 4.2
+    for idx, (label, pct, color) in enumerate(funnel):
+        y = 160 + idx * 62
+        width = pct * 4.6
         lines += [
-            f'  <text x="50" y="{y + 23}" class="label">{label}</text>',
-            f'  <rect x="270" y="{y}" width="{width:g}" height="34" rx="5" fill="{color}"/>',
-            f'  <text x="{285 + width:g}" y="{y + 23}" class="small">{pct}%</text>',
+            f'  <text x="70" y="{y + 24}" class="label">{label}</text>',
+            f'  <rect x="275" y="{y}" width="{width}" height="34" rx="6" fill="{color}"/>',
+            f'  <text x="{290 + width}" y="{y + 23}" class="small">{pct}%</text>',
         ]
-    lines += ['  <text x="40" y="430" class="small">Example use: high product views with weak cart or purchase movement should trigger category, pricing, availability, and tracking checks.</text>', '</svg>']
-    write("funnel_analysis.svg", lines)
-
-
-def product_performance():
-    rows = [("electronics.smartphone", 100, 22), ("computers.notebook", 82, 15), ("appliances.kitchen", 74, 12), ("electronics.audio", 55, 9), ("accessories", 38, 4)]
-    lines = [header(920, 520)]
     lines += [
-        '  <text x="40" y="50" class="title">Product and Category Performance</text>',
-        '  <text x="40" y="76" class="subtitle">Comparing attention, purchase movement, and revenue concentration</text>',
-        f'  <rect x="40" y="110" width="840" height="330" rx="10" fill="#fff" stroke="{LINE}"/>',
-        '  <text x="245" y="138" class="small">Revenue index</text>',
-        '  <text x="610" y="138" class="small">View-to-purchase index</text>',
+        f'  <rect x="760" y="115" width="280" height="330" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="785" y="150" class="h">Diagnostic follow-up</text>',
+        f'  <circle cx="794" cy="190" r="5" fill="{ACCENT}"/><text x="812" y="195" class="small">Validate event sequence</text>',
+        f'  <circle cx="794" cy="228" r="5" fill="{ACCENT_2}"/><text x="812" y="233" class="small">Check product content</text>',
+        f'  <circle cx="794" cy="266" r="5" fill="{ACCENT_3}"/><text x="812" y="271" class="small">Inspect price/availability</text>',
+        f'  <circle cx="794" cy="304" r="5" fill="{ACCENT_4}"/><text x="812" y="309" class="small">Review checkout friction</text>',
+        '  <text x="785" y="366" class="small">Interpretation is staged:</text>',
+        '  <text x="785" y="388" class="small">tracking first, then product,</text>',
+        '  <text x="785" y="410" class="small">then commercial action.</text>',
+        f'  <rect x="40" y="485" width="1000" height="84" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="70" y="520" class="h">Stakeholder note</text>',
+        '  <text x="70" y="548" class="small">High views with weak cart or purchase movement should trigger category, pricing, availability, UX, and tracking checks before recommending action.</text>',
+        "</svg>",
     ]
-    for i, (category, revenue, conversion) in enumerate(rows):
-        y = 165 + i * 55
+    write("funnel_analysis.svg", "\n".join(lines))
+
+
+def save_product_svg():
+    rows = [
+        ("electronics.smartphone", 100, 22),
+        ("computers.notebook", 82, 15),
+        ("appliances.kitchen", 74, 12),
+        ("electronics.audio", 55, 9),
+        ("accessories", 38, 4),
+    ]
+    lines = [svg_header(1100, 640)]
+    lines += [
+        '  <text x="40" y="50" class="title">Product Friction and Category Performance</text>',
+        '  <text x="40" y="76" class="subtitle">Prioritizing products with high attention but weak purchase movement</text>',
+        f'  <rect x="40" y="112" width="620" height="380" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="70" y="146" class="h">Top friction candidates</text>',
+        '  <text x="275" y="180" class="small">Revenue index</text>',
+        '  <text x="540" y="180" class="small">CVR index</text>',
+    ]
+    for idx, (category, revenue, conversion) in enumerate(rows):
+        y = 210 + idx * 52
         lines += [
-            f'  <text x="65" y="{y + 17}" class="label">{category}</text>',
-            f'  <rect x="245" y="{y}" width="{revenue * 2.4:g}" height="22" rx="4" fill="{ACCENT}"/>',
-            f'  <text x="{255 + revenue * 2.4:g}" y="{y + 17}" class="small">{revenue}</text>',
-            f'  <rect x="610" y="{y}" width="{conversion * 7.0:g}" height="22" rx="4" fill="{ACCENT_2}"/>',
-            f'  <text x="{620 + conversion * 7.0:g}" y="{y + 17}" class="small">{conversion}</text>',
+            f'  <text x="70" y="{y + 17}" class="label">{category}</text>',
+            f'  <rect x="275" y="{y}" width="{revenue * 2.0}" height="22" rx="4" fill="{ACCENT}"/>',
+            f'  <text x="{284 + revenue * 2.0}" y="{y + 17}" class="small">{revenue}</text>',
+            f'  <rect x="540" y="{y}" width="{conversion * 5.0}" height="22" rx="4" fill="{ACCENT_2}"/>',
+            f'  <text x="{550 + conversion * 5.0}" y="{y + 17}" class="small">{conversion}</text>',
         ]
-    lines += ['  <text x="40" y="480" class="small">Analytical use: identify categories with high browsing activity but weak purchase movement for product, pricing, content, or availability follow-up.</text>', '</svg>']
-    write("product_performance.svg", lines)
+    lines += [
+        f'  <rect x="700" y="112" width="350" height="380" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="728" y="146" class="h">Friction score components</text>',
+        f'  <rect x="730" y="188" width="180" height="24" rx="5" fill="{ACCENT}"/><text x="925" y="205" class="small">attention percentile</text>',
+        f'  <rect x="730" y="236" width="130" height="24" rx="5" fill="{ACCENT_2}"/><text x="875" y="253" class="small">weak view-to-cart</text>',
+        f'  <rect x="730" y="284" width="142" height="24" rx="5" fill="{ACCENT_3}"/><text x="887" y="301" class="small">weak cart-to-purchase</text>',
+        f'  <rect x="730" y="332" width="86" height="24" rx="5" fill="{ACCENT_4}"/><text x="831" y="349" class="small">remove pressure</text>',
+        '  <text x="728" y="410" class="small">Output is a review queue, not proof of cause.</text>',
+        f'  <rect x="40" y="530" width="1010" height="64" rx="12" fill="#fff" stroke="{LINE}"/>',
+        '  <text x="70" y="568" class="small">Analytical use: identify products with high browsing activity but weak purchase movement for product, pricing, content, availability, or tracking follow-up.</text>',
+        "</svg>",
+    ]
+    write("product_performance.svg", "\n".join(lines))
 
 
 if __name__ == "__main__":
-    dashboard_overview()
-    analytics_pipeline()
-    funnel_analysis()
-    product_performance()
+    save_dashboard_overview_svg()
+    save_pipeline_svg()
+    save_funnel_svg()
+    save_product_svg()
     print(f"wrote visuals to {OUT}")

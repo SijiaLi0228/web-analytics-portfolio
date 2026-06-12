@@ -1,40 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="520" viewBox="0 0 1180 520" role="img" aria-label="large-scale ecommerce clickstream analytics visual">
   <rect width="100%" height="100%" fill="#f7f8fb"/>
   <style>
-    .title{font:700 28px Arial, sans-serif;fill:#1f2937}
+    .title{font:700 30px Arial, sans-serif;fill:#1f2937}
     .subtitle{font:400 14px Arial, sans-serif;fill:#5f6b7a}
     .h{font:700 16px Arial, sans-serif;fill:#1f2937}
     .label{font:400 13px Arial, sans-serif;fill:#5f6b7a}
-    .value{font:700 24px Arial, sans-serif;fill:#1f2937}
+    .value{font:700 25px Arial, sans-serif;fill:#1f2937}
     .small{font:400 12px Arial, sans-serif;fill:#5f6b7a}
+    .xs{font:400 10px Arial, sans-serif;fill:#5f6b7a}
+    .white{fill:#ffffff}
+    .pill{font:700 11px Arial, sans-serif;fill:#ffffff}
   </style>
 
 <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#1f5f8b"/></marker></defs>
-  <text x="40" y="50" class="title">Analytics Pipeline</text>
-  <text x="40" y="76" class="subtitle">Large public clickstream data modeled into dashboard-ready KPI tables</text>
-  <rect x="40" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="111" y="176" text-anchor="middle" class="h">Public Dataset</text>
-  <text x="111" y="205" text-anchor="middle" class="small">285M events</text>
-  <text x="111" y="224" text-anchor="middle" class="small">user/session/product</text>
-  <path d="M188 190 L212 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
-  <rect x="220" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="291" y="176" text-anchor="middle" class="h">Bronze</text>
-  <text x="291" y="205" text-anchor="middle" class="small">raw clickstream</text>
-  <text x="291" y="224" text-anchor="middle" class="small">source schema</text>
-  <path d="M368 190 L392 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
-  <rect x="400" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="471" y="176" text-anchor="middle" class="h">Silver</text>
-  <text x="471" y="205" text-anchor="middle" class="small">event mapping</text>
-  <text x="471" y="224" text-anchor="middle" class="small">QA fields</text>
-  <path d="M548 190 L572 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
-  <rect x="580" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="651" y="176" text-anchor="middle" class="h">Gold</text>
-  <text x="651" y="205" text-anchor="middle" class="small">journey KPIs</text>
-  <text x="651" y="224" text-anchor="middle" class="small">product performance</text>
-  <path d="M728 190 L752 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
-  <rect x="760" y="135" width="142" height="110" rx="10" fill="#fff" stroke="#d9dee7"/>
-  <text x="831" y="176" text-anchor="middle" class="h">Power BI</text>
-  <text x="831" y="205" text-anchor="middle" class="small">stakeholder views</text>
-  <text x="831" y="224" text-anchor="middle" class="small">DAX measures</text>
-  <text x="40" y="315" class="small">QA principle: do not interpret journey drop-off until session IDs, event types, product IDs, and purchase prices are validated.</text>
+  <text x="40" y="50" class="title">Analytics Pipeline and Decision Layer</text>
+  <text x="40" y="76" class="subtitle">Large public clickstream data modeled into reusable KPI, prioritization, monitoring, and QA outputs</text>
+  <rect x="40" y="130" width="150" height="118" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="115" y="170" text-anchor="middle" class="h">Public Dataset</text>
+  <text x="115" y="202" text-anchor="middle" class="small">285M events</text>
+  <text x="115" y="222" text-anchor="middle" class="small">user/session/product</text>
+  <path d="M196 190 L224 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="230" y="130" width="150" height="118" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="305" y="170" text-anchor="middle" class="h">Bronze</text>
+  <text x="305" y="202" text-anchor="middle" class="small">raw clickstream</text>
+  <text x="305" y="222" text-anchor="middle" class="small">source schema</text>
+  <path d="M386 190 L414 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="420" y="130" width="150" height="118" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="495" y="170" text-anchor="middle" class="h">Silver</text>
+  <text x="495" y="202" text-anchor="middle" class="small">event mapping</text>
+  <text x="495" y="222" text-anchor="middle" class="small">validated fields</text>
+  <path d="M576 190 L604 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="610" y="130" width="150" height="118" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="685" y="170" text-anchor="middle" class="h">Core Gold</text>
+  <text x="685" y="202" text-anchor="middle" class="small">journey KPIs</text>
+  <text x="685" y="222" text-anchor="middle" class="small">product performance</text>
+  <path d="M766 190 L794 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="800" y="130" width="150" height="118" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="875" y="170" text-anchor="middle" class="h">Advanced Gold</text>
+  <text x="875" y="202" text-anchor="middle" class="small">cohort retention</text>
+  <text x="875" y="222" text-anchor="middle" class="small">friction monitoring</text>
+  <path d="M956 190 L984 190" stroke="#1f5f8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="990" y="130" width="150" height="118" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="1065" y="170" text-anchor="middle" class="h">Power BI</text>
+  <text x="1065" y="202" text-anchor="middle" class="small">stakeholder views</text>
+  <text x="1065" y="222" text-anchor="middle" class="small">readiness notes</text>
+  <rect x="40" y="310" width="1100" height="140" rx="12" fill="#fff" stroke="#d9dee7"/>
+  <text x="70" y="346" class="h">Advanced tables added</text>
+  <rect x="70" y="372" width="225" height="42" rx="8" fill="#edf5fa"/><text x="86" y="398" class="small">gold_user_monthly_retention</text>
+  <rect x="315" y="372" width="225" height="42" rx="8" fill="#eef4ef"/><text x="331" y="398" class="small">gold_product_friction_scores</text>
+  <rect x="560" y="372" width="225" height="42" rx="8" fill="#f7ead2"/><text x="576" y="398" class="small">gold_weekly_category_monitoring</text>
+  <rect x="805" y="372" width="250" height="42" rx="8" fill="#f8e6e2"/><text x="821" y="398" class="small">gold_tracking_quality_scorecard</text>
+  <text x="70" y="444" class="small">QA principle: do not interpret journey drop-off until session IDs, event types, product IDs, and purchase prices are validated.</text>
 </svg>
